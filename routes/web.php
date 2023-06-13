@@ -1,10 +1,13 @@
 <?php
 
 use App\Models\Passenger;
+use App\Models\Trainlist;
+use App\Models\Train_status;
 use App\Http\Controllers\getData;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\bookTicketController;
 use App\Http\Controllers\cancelTicketController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +41,8 @@ Route::post('/cancelTicket', [cancelTicketController::class, 'cancelTicket']);
 
 Route::get('/dash', function (){
     $pngr = Passenger::all();
-    return view('AdminDashboard', ['passngr' => $pngr]);
+    $tlist = Train_status::all();
+    $trainl = Trainlist::all();
+    return view('AdminDashboard', ['passngr' => $pngr], ['tlist' => $tlist], ['trainlist'=> $trainl]);
 });
 
