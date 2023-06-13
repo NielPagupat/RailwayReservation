@@ -41,3 +41,4 @@ Route::get('/dash', function (){
     return view('AdminDashboard', ['passngr' => $pngr]);
 });
 
+?>

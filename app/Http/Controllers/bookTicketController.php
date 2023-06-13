@@ -58,4 +58,3 @@ class bookTicketController extends Controller
         return $data;
     }
 }
-?>
