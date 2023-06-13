@@ -54,3 +54,4 @@ class bookTicketController extends Controller
         return view('/', ['ticket'=>$Ticket]);
     }
 }
+?>

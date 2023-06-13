@@ -1,14 +1,16 @@
 import React from 'react'
 import cryptoRandomString from 'crypto-random-string'
+import TextField from '@mui/material/TextField'
+import BasicDatePicker from '../Components/BasicDatePicker'
+
 export default function BookTicketForm() {
-  return (
-    
+  return ( 
     <>
     <h1>Book Ticket</h1>
     <form action="/bookTicket" method='Post'>
       <input type="text" name='uid' value={cryptoRandomString({length:10})} hidden/>
-      <input name='tNo' type="text" placeholder='train No.'/>
-      <input name='bookDt' type='date' placeholder='bookDate'/>
+      <TextField name='tNo' type="text" id="outlined-basic" label="Train No." variant="outlined" />
+      <BasicDatePicker name='bookDt' label='Book Date'/>
       <select name="route" id="rt">
         <option value="0" disabled selected>route</option>
         <option value="1">CDO-Davao</option>
