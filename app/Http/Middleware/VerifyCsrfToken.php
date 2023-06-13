@@ -16,6 +16,7 @@ class VerifyCsrfToken extends Middleware
         '/cancelTicket',
         '/login',
         '/register',
-        '/dash'
+        '/dash',
+        '/pass'
     ];
 }

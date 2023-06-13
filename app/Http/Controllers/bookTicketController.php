@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Models\Passenger;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 class bookTicketController extends Controller
 
 {
@@ -38,19 +41,20 @@ class bookTicketController extends Controller
                                           $incomingFields['age'],
                                           $incomingFields['sex'],
                                           $incomingFields['address']));
-        $Ticket = [$incomingFields['uid'],
-                    $incomingFields['tNo'],
-                    $incomingFields['bookDt'],
-                    $incomingFields['route'],
-                    $incomingFields['source'],
-                    $incomingFields['destination'],
-                    $incomingFields['sched'],
-                    $incomingFields['time'],
-                    $incomingFields['cat'],
-                    $incomingFields['name'],
-                    $incomingFields['age'],
-                    $incomingFields['sex'],
-                    $incomingFields['address']];
-        return view('/', ['ticket'=>$Ticket]);
+        
+        $data = [$incomingFields['uid'],
+        $incomingFields['tNo'],
+        $incomingFields['bookDt'],
+        $incomingFields['route'],
+        $incomingFields['source'],
+        $incomingFields['destination'],
+        $incomingFields['sched'],
+        $incomingFields['time'],
+        $incomingFields['cat'],
+        $incomingFields['name'],
+        $incomingFields['age'],
+        $incomingFields['sex'],
+        $incomingFields['address']];
+        return $data;
     }
 }
