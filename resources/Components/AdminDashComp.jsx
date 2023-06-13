@@ -19,6 +19,8 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import { Button } from '@mui/material';
+import GetData from '../Helpers/GetData';
+
 
 function Copyright(props) {
   return (
@@ -88,6 +90,13 @@ export default function Dashboard() {
     setOpen(!open);
   };
 
+  const clickMeBaby = async (event) => {
+    let result = await GetData('/pass');
+
+    console.log(result);
+  }
+
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -138,8 +147,9 @@ export default function Dashboard() {
             </IconButton>
           </Toolbar>
           <Divider />
-          <List component="nav">
-            {mainListItems}
+          <List component="nav" sx={{display:'flex', flexDirection:'column'}}>
+            <Button href='/pass' type='submit' formmethod="GET" >Hello</Button>
+            <button onClick={clickity}>HI</button>
             <Divider sx={{ my: 1 }} />
             {secondaryListItems}
           </List>
@@ -167,8 +177,9 @@ export default function Dashboard() {
                     display: 'flex',
                     flexDirection: 'column',
                     height: 240,
-                  }}
-                >
+                  }}>
+
+                    <div id='passengers'>Hello Bitches</div>
                   
                 </Paper>
               </Grid>
@@ -182,16 +193,16 @@ export default function Dashboard() {
                     height: 240,
                   }}
                 >
+                  <div></div>
                 </Paper>
               </Grid>
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-    
+                    other side 
                 </Paper>
               </Grid>
             </Grid>
-            <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
       </Box>

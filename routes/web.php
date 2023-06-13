@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Passenger;
+use App\Http\Controllers\getData;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\bookTicketController;
 use App\Http\Controllers\cancelTicketController;
@@ -34,7 +36,8 @@ Route::post('/cancelTicket', [cancelTicketController::class, 'cancelTicket']);
 
 
 
-
 Route::get('/dash', function (){
-    return view('AdminDashboard');
+    $pngr = Passenger::all();
+    return view('AdminDashboard', ['passngr' => $pngr]);
 });
+
