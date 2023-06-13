@@ -38,6 +38,19 @@ class bookTicketController extends Controller
                                           $incomingFields['age'],
                                           $incomingFields['sex'],
                                           $incomingFields['address']));
-        return redirect('/');
+        $Ticket = [$incomingFields['uid'],
+                    $incomingFields['tNo'],
+                    $incomingFields['bookDt'],
+                    $incomingFields['route'],
+                    $incomingFields['source'],
+                    $incomingFields['destination'],
+                    $incomingFields['sched'],
+                    $incomingFields['time'],
+                    $incomingFields['cat'],
+                    $incomingFields['name'],
+                    $incomingFields['age'],
+                    $incomingFields['sex'],
+                    $incomingFields['address']];
+        return view('/', ['ticket'=>$Ticket]);
     }
 }

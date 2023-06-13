@@ -17,5 +17,8 @@
     </head>
     <body>
         <div id="MainPage"></div>
+        <div id="Ticket">
+            
+        </div>
     </body>
 </html>

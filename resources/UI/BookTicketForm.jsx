@@ -2,7 +2,7 @@ import React from 'react'
 import cryptoRandomString from 'crypto-random-string'
 export default function BookTicketForm() {
   return (
-    <>
+    
     <>
     <h1>Book Ticket</h1>
     <form action="/bookTicket" method='Post'>
@@ -56,7 +56,6 @@ export default function BookTicketForm() {
       <input name='address' type="text" placeholder='address' />
       <input type="submit" value='Book Ticket' />
     </form>
-    </>
     </>
   )
 }

@@ -19,17 +19,21 @@ Route::get('/', function () {
     return view('Main');
 });
 
+Route::get('/login', function (){
+    return view('Main');
+});
+
+Route::get('/register', function (){
+    return view('Main');
+});
+
 Route::post('/bookTicket', [bookTicketController::class, 'bookTicket']);
 
 Route::post('/cancelTicket', [cancelTicketController::class, 'cancelTicket']);
 
-Route::get('/login', function (){
-    return view('Login');
-});
 
-Route::get('/register', function (){
-    return view('Registration');
-});
+
+
 
 Route::get('/dash', function (){
     return view('AdminDashboard');
