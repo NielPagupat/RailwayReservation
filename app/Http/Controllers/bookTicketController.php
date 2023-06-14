@@ -55,6 +55,6 @@ class bookTicketController extends Controller
         $incomingFields['age'],
         $incomingFields['sex'],
         $incomingFields['address']];
-        return $data;
+        return redirect('/');
     }
 }

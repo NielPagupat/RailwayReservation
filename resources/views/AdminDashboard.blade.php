@@ -18,6 +18,22 @@
         @vite('resources/js/AdminDash.jsx') -->
 
     </head>
+    <style>
+        .overflow {
+            height: 75vh;
+            overflow-y: hidden;
+            overflow-x: hidden;
+        
+        }
+        .overflow:hover {
+            overflow-y: scroll;
+            overflow-y: scroll;
+        }
+        .hidden {
+            display: none;
+        }
+
+    </style>
     <body>
         <div id="AdminDashboard">
         <nav class="navbar navbar-expand-lg navbar-light bg-dark">
@@ -52,12 +68,14 @@
         </div>
         <div class='d-flex'>
             <div class='d-flex flex-column flex-grow-1'>
-                <Button class="btn m-1">Passengers</Button>
-                <Button class="btn m-1">Trains</Button>
-                <Button class="btn m-1">Train Status</Button>
+                <Button class="btn m-1" onclick=showPassengers()>Passengers</Button>
+                <Button class="btn m-1" onclick=showTraintbl()>Trains</Button>
+                <Button class="btn m-1" onclick=showTrainStat()>Train Status</Button>
             </div>
-            <div class='flex-grow-3'>
-                <div class='w-50'>
+
+            <div id='passengertbl' class='flex-grow-3'>
+                <h1>Passengers</h1>
+                <div class='w-100 overflow'>
                     <table class='table table-dark m-1'>
                         <tr><th>ticket Number</th>
                             <th>Train No.</th>
@@ -96,8 +114,80 @@
                     </table>
                 </div>
             </div>
+
+            <div id='trainlist' class='hidden'>
+                <h1>Train Status</h1>
+                <div class='w-100 overflow'>
+                    <table class='table table-dark m-1'>
+                        <tr>
+                            <th>Train No.</th>
+                            <th>Date</th>
+                            <th>Total AC seats</th>
+                            <th>Total Gen Seats</th>
+                            <th>AC seats Booked</th>
+                            <th>Gen seats Booked</th>
+                            <th>route</th>
+                        </tr>
+
+                        @foreach($tlist as $t)
+                            <tr>
+                                <td>{{$t['trainNumber']}}</td>
+                                <td>{{$t['trainDate']}}</td>
+                                <td>{{$t['totalACSeats']}}</td>
+                                <td>{{$t['totalGenSeats']}}</td>
+                                <td>{{$t['ACSeatsBooked']}}</td>
+                                <td>{{$t['GenSeatsBooked']}}</td>
+                                <td>{{$t['route']}}</td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </div>        
+            </div>
+
+            <div>
+                <h1>Trains</h1>
+                <div class='w-100 overflow'>
+                    <table class='table table-dark m-1'>
+                        <tr>
+                            <th>Train No.</th>
+                            <th>train Name</th>
+                            <th>source And Destination</th>
+                            <th>AC Fare</th>
+                            <th>Gen Fare</th>
+                            <th>Schedule</th>
+                        </tr>
+
+                        @foreach($trainlist as $tlist)
+                            <tr>
+                                <td>{{$tlist['trainNumber']}}</td>
+                                <td>{{$tlist['trainName']}}</td>
+                                <td>{{$tlist['source']}}</td>
+                                <td>{{$tlist['AC_fare']}}</td>
+                                <td>{{$tlist['GEN_fare']}}</td>
+                                <td>{{$tlist['Schedule']}}</td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </div> 
+            </div>
+
         </div>
 
+        <script>
+            function showPassengers(){
+                document.querySelector('#passengertbl').style.display = 'block';
+
+                document.querySelector('#trainlist').style.display = 'none';
+            }
+            function showTraintbl(){
+                document.querySelector('#passengertbl').style.display = 'none';
+                document.querySelector('#trainlist').style.display = 'none';
+            }
+            function showTrainStat(){
+                document.querySelector('#passengertbl').style.display = 'none';
+                document.querySelector('#trainlist').style.display = 'block';
+            }
+        </script>
 
         
     </body>
