@@ -11,14 +11,8 @@ export default function BookTicketForm() {
   const [route, setRoute] = useState();
   const [source, setSource] = useState();
   const [train, setTrain] = useState();
-  const trainSchedA= {
-    AM: ['9:00', '9:20', '2:40', '10:00', '10:20', '10:40', '11:00'],
-    PM1: ['12:00', '12:20', '12:40', '1:00', '1:20', '1:40', '2:00'],
-    PM2: ['3:00', '3:20', '3:40', '4:00', '4:20', '4:40', '5:00'],
-    EVE1: ['6:00', '6:20', '6:40', '7:00', '7:20', '7:40', '8:00'],
-    EVE2: ['9:00', '9:20', '9:40', '10:00', '10:20', '10:40', '11:00']
-  }
-
+  const [sched, setSched] = useState();
+  
 
   const chkTrain = (ev) => {
     setTrain(ev.target.value);
@@ -40,25 +34,27 @@ export default function BookTicketForm() {
     document.querySelector('#sched').value = 'EVE2';
   }
   
+  const chkSched = (ev) => {
+    setSched(ev.target.value)
+  }
 
   const chkSource = (ev) => {
     setSource(ev.target.value);
-    
   }
   const chkDate = (ev) => {
     setDate(ev.target.value);
     console.log(route);
+    console.log(train);
   }
   const chkRoute = (ev) => {
     setRoute(ev.target.value);
   }
+
   let d = new Date(date);
   let day = d.getDate();
 
 
   if (route != undefined && date != undefined) {
-    document.querySelector('#trainName').removeAttribute('disabled');
-    document.querySelector('#trainName').value = "train";
     if (route == 1 && day%2 == 0) {
       let routeA = document.querySelectorAll('.routeA');
       function iterate(item){
