@@ -1,23 +1,97 @@
-import React from 'react'
+import React, { useState } from 'react'
 import cryptoRandomString from 'crypto-random-string'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button';
 
 
 export default function BookTicketForm() {
+  let Curdate = new Date().toJSON().slice(0, 10);
+  const [date, setDate] = useState(Curdate);
+  const [route, setRoute] = useState();
+  const chkDate = (ev) => {
+    setDate(ev.target.value);
+    console.log(route);
+  }
+  const chkRoute = (ev) => {
+    setRoute(ev.target.value);
+  }
+  let d = new Date(date);
+  let day = d.getDate();
+  if (route != undefined && date != undefined) {
+    if (route == 1 && day%2 == 0) {
+      let routeA = document.querySelectorAll('.routeA');
+      function iterate(item){
+        item.style.display='none';
+      }
+      let routeB = document.querySelectorAll('.routeB');
+      function iterate2(item){
+        item.style.display='block';
+      }
+      routeA.forEach(iterate);
+      routeB.forEach(iterate2);
+    } else if (route == 2 && day%2 == 0) {
+      let routeA = document.querySelectorAll('.routeA');
+      function iterate(item){
+        item.style.display='block';
+      }
+      let routeB = document.querySelectorAll('.routeB');
+      function iterate2(item){
+        item.style.display='none';
+      }
+      routeA.forEach(iterate);
+      routeB.forEach(iterate2);
+    } else if (route == 1 && day%2 == 1) {
+      let routeA = document.querySelectorAll('.routeA');
+      function iterate(item){
+        item.style.display='block';
+      }
+      let routeB = document.querySelectorAll('.routeB');
+      function iterate2(item){
+        item.style.display='none';
+      }
+      routeA.forEach(iterate);
+      routeB.forEach(iterate2);
+    } else if (route == 2 && day%2 == 1) {
+      let routeA = document.querySelectorAll('.routeA');
+      function iterate(item){
+        item.style.display='none';
+      }
+      let routeB = document.querySelectorAll('.routeB');
+      function iterate2(item){
+        item.style.display='block';
+      }
+      routeA.forEach(iterate);
+      routeB.forEach(iterate2);
+    }
+
+  }
+  
   return ( 
     <>
     <h1>Book Ticket</h1>
     <form action="/bookTicket" method='Post'>
       <input type="text" name='uid' value={cryptoRandomString({length:10})} hidden/>
-      <TextField name='tNo' type="text" id="outlined-basic" label="Train No." variant="outlined" size="small"/>
-      <TextField name='bookDt' type='date' size="small"/>
-      <select style={{padding: 10}} name="route" id="rt">
+      {/*<TextField name='tNo' type="text" id="outlined-basic" label="Train No." variant="outlined" size="small"/>*/}
+      <select style={{padding: 10}} name="tNo">
+          <option value="" selected disabled>Trains</option>
+          <option value="T01" class='routeA' id='orange'>Orange</option>
+          <option value="T02" class='routeA' id='blue'>Blue</option>
+          <option value="T03" class='routeA' id='TGV'>TGV</option>
+          <option value="T04" class='routeA'id='GoldenTime'>GoldenTime</option>
+          <option value="T05" class='routeA' id='Comfy'>ComfyCruiser</option>
+          <option value="T06" class='routeB' id='LightWave'>LightWave</option>
+          <option value="T07" class='routeB' id='HeatRan'>HeatRan</option>
+          <option value="T08" class='routeB' id='AyeTrain'>AyeTrain</option>
+          <option value="T09" class='routeB' id='Hyperion'>Hyperion</option>
+          <option value="T10" class='routeB' id='Katipunan'>Katipunan</option>
+      </select>
+      <TextField id='date' name='bookDt' type='date' value={date} size="small" onChange={chkDate}/>
+      <select style={{padding: 10}} name="route" id="rt" onChange={chkRoute}>
         <option value="0" disabled selected>Route</option>
         <option value="1">CDO-Davao</option>
         <option value='2'>Davao-CDO</option>
       </select>
-      <select style={{padding: 10}} name="source" id="ource">
+      <select style={{padding: 10}} name="source" id="source">
         <option value="source" disabled selected>Source</option>
         <option value="CDO">CDO</option>
         <option value="Malaybalay">Malaybalay</option>
