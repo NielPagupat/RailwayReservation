@@ -5,6 +5,7 @@ use App\Models\Trainlist;
 use App\Models\Train_status;
 use App\Http\Controllers\getData;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GetGenReport;
 use App\Http\Controllers\bookTicketController;
 use App\Http\Controllers\cancelTicketController;
 
@@ -43,6 +44,9 @@ Route::get('/dash', function (){
     $pngr = Passenger::all();
     $tlist = Train_status::all();
     $trainl = Trainlist::all();
-    return view('AdminDashboard', ['passngr' => $pngr], ['tlist' => $tlist], ['trainlist'=> $trainl]);
+    $data = [$pngr, $tlist, $trainl];
+    return view('AdminDashboard', ['data'=>$data]);
 });
 
+
+Route::get('/getGenReport', [GetGenReport::class, 'getGenReport']);

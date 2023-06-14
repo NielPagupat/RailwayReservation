@@ -35,9 +35,10 @@
 
     </style>
     <body>
+        
         <div id="AdminDashboard">
         <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-            <a class="navbar-brand" href="#">Navbar</a>
+            <a class="navbar-brand" href="/">Navbar</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -71,9 +72,10 @@
                 <Button class="btn m-1" onclick=showPassengers()>Passengers</Button>
                 <Button class="btn m-1" onclick=showTraintbl()>Trains</Button>
                 <Button class="btn m-1" onclick=showTrainStat()>Train Status</Button>
+                <Button class="btn m-1" onclick=Reports()>Reports</Button>
             </div>
 
-            <div id='passengertbl' class='flex-grow-3'>
+            <div id='passengertbl' class='flex-grow-3 hidden' >
                 <h1>Passengers</h1>
                 <div class='w-100 overflow'>
                     <table class='table table-dark m-1'>
@@ -93,7 +95,7 @@
                             <th>address</th>
                             <th>timeStamp</th></tr>
 
-                            @foreach($passngr as $pnger)
+                            @foreach($data[0] as $pnger)
                                 <tr><td>{{$pnger['ticketID']}}</td>
                                     <td>{{$pnger['trainNumber']}}</td>
                                     <td>{{$pnger['dateBooked']}}</td>
@@ -115,7 +117,7 @@
                 </div>
             </div>
 
-            <div id='trainlist' class='hidden'>
+            <div id='trainliststat' class='hidden'>
                 <h1>Train Status</h1>
                 <div class='w-100 overflow'>
                     <table class='table table-dark m-1'>
@@ -129,7 +131,7 @@
                             <th>route</th>
                         </tr>
 
-                        @foreach($tlist as $t)
+                        @foreach($data[1] as $t)
                             <tr>
                                 <td>{{$t['trainNumber']}}</td>
                                 <td>{{$t['trainDate']}}</td>
@@ -144,7 +146,7 @@
                 </div>        
             </div>
 
-            <div>
+            <div id='trainlist' class='hidden'>
                 <h1>Trains</h1>
                 <div class='w-100 overflow'>
                     <table class='table table-dark m-1'>
@@ -157,7 +159,7 @@
                             <th>Schedule</th>
                         </tr>
 
-                        @foreach($trainlist as $tlist)
+                        @foreach($data[2] as $tlist)
                             <tr>
                                 <td>{{$tlist['trainNumber']}}</td>
                                 <td>{{$tlist['trainName']}}</td>
@@ -171,22 +173,60 @@
                 </div> 
             </div>
 
+            <div id='Reports' class='m-3 hidden'>
+                <h3>Generate General Seats Report For Train Number:_____ for date: _____<h3>
+                <form action="/getGenReport" method='get'>
+                    <input type='text' id='trainNo' name='trainNumber' placeholder='Train Number'/>
+                    <input type='date' id='date' name='date' />
+                    <input type="submit" value='Generate' />
+                </form>
+                
+    
+                <h3>Generate AC Seats Report For Train Number:_____ for date: _____<h3>
+                <form action="/getACReport" method='get'>
+                    <input type='text' id='trainNo' name='trainNumber' placeholder='Train Number'/>
+                    <input type='date' ide='data' name='date' />
+                    <input type="submit" value='Generate' />
+                </form>
+                
+            </div>
+
+            
+
         </div>
+
+       
 
         <script>
             function showPassengers(){
                 document.querySelector('#passengertbl').style.display = 'block';
-
+                document.querySelector('#trainliststat').style.display = 'none';
                 document.querySelector('#trainlist').style.display = 'none';
+                document.querySelector('#Reports').style.display = 'none';
+                
+
+                
             }
             function showTraintbl(){
                 document.querySelector('#passengertbl').style.display = 'none';
-                document.querySelector('#trainlist').style.display = 'none';
+                document.querySelector('#trainliststat').style.display = 'none';
+                document.querySelector('#trainlist').style.display = 'block';
+                document.querySelector('#Reports').style.display = 'none';
+     
             }
             function showTrainStat(){
                 document.querySelector('#passengertbl').style.display = 'none';
-                document.querySelector('#trainlist').style.display = 'block';
+                document.querySelector('#trainliststat').style.display = 'block';
+                document.querySelector('#trainlist').style.display = 'none';
+                document.querySelector('#Reports').style.display = 'none';
             }
+            function Reports(){
+                document.querySelector('#passengertbl').style.display = 'none';
+                document.querySelector('#trainliststat').style.display = 'none';
+                document.querySelector('#trainlist').style.display = 'none';
+                document.querySelector('#Reports').style.display = 'block';
+            }
+            
         </script>
 
         
