@@ -35,7 +35,7 @@ function ResponsiveAppBar() {
               BOLS Travel
           </Typography>
           </Box>
-          <Button variant="contained" color='success' href='/login'> Admin Login</Button>
+          <Button sx={{backgroundColor: 'white', color: 'black'}} variant="contained" href='/login'> Admin Login</Button>
         </Toolbar>
       </Container>
     </AppBar>

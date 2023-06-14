@@ -46,6 +46,7 @@ export default function SignInSide() {
           sm={4}
           md={7}
           sx={{
+            marginLeft:7.5,
             backgroundImage: 'url(https://cdn.discordapp.com/attachments/1072506851662499891/1118127775774150656/RailwayLOLZ.png)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
@@ -54,7 +55,7 @@ export default function SignInSide() {
             backgroundPosition: 'center',
           }}
         />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={8} md={4} component={Paper} elevation={6} square>
           <Box>
             <BookTicketForm />
             <CancelTicket />
