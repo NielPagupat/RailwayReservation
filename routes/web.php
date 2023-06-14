@@ -48,6 +48,4 @@ Route::get('/dash', function (){
     return view('AdminDashboard', ['data'=>$data]);
 });
 
-
 Route::get('/getGenReport', [GetGenReport::class, 'getGenReport']);
-?>

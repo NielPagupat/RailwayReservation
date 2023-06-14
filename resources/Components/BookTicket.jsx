@@ -38,7 +38,7 @@ export default function SignInSide() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: '85vh' }}>
+      <Grid container component="main" sx={{ height: '85vh'}}>
         <CssBaseline />
         <Grid
           item
