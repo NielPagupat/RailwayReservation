@@ -12,13 +12,14 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="https://www.youtube.com/watch?v=nlLhw1mtCFA&ab_channel=Brolita">
+        BOLS Trains and Railway
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -46,16 +47,18 @@ export default function SignIn() {
         <CssBaseline />
         <Box
           sx={{
+            padding: 3,
             marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
+          component={Paper}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
+          <Avatar sx={{ m: 1, bgcolor: 'gray' }}>
+            <Avatar src="/broken-image.jpg" />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography sx={{fontFamily: 'Teko'}} component="h1" variant="h5">
             Sign in
           </Typography>
           <Box component="form" action='/dash' noValidate sx={{ mt: 1 }}>
@@ -87,13 +90,13 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, backgroundColor: 'gray'}}
             >
               Sign In
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link href="https://www.youtube.com/watch?v=xADSDapqn9o" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
@@ -105,7 +108,7 @@ export default function SignIn() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        <Copyright sx={{ mt: 8, mb: 5, color: 'gray'}}/>
       </Container>
     </ThemeProvider>
   );
