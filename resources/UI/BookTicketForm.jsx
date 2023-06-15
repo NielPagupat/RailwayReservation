@@ -6,6 +6,7 @@ import '@fontsource/teko/500.css';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box/Box';
 import Typography  from '@mui/material/styles/createTypography';
+import html2canvas from 'html2canvas';
 
 export default function BookTicketForm() {
   let Curdate = new Date().toJSON().slice(0, 10);
@@ -29,7 +30,18 @@ export default function BookTicketForm() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-
+  //SaveTicket
+  const saveImage = () => {
+    html2canvas(document.querySelector("#TicketToSave"), {
+      onrendered: function (canvas) {
+        var a = document.createElement('a');
+        a.href = canvas.toDataURL("image/png");
+        a.download = 'ticket.png';
+        a.click();
+      }
+    });
+    console.log('clicked')
+  }
   const chkDest = (ev) => {
     setDest(ev.target.value);
   }
@@ -238,7 +250,7 @@ export default function BookTicketForm() {
         <option value="2">Gen seat</option>
       </select>
 
-      <TextField sx={{width: '5.6vw'}} name='Fare' type="text" id="outlined-basic" variant="outlined" size="small" value={fare} onChange={chkFare} /><br/>
+      <TextField sx={{width: '5.6vw'}} name='fare' type="text" id="outlined-basic" variant="outlined" size="small" value={fare} onChange={chkFare} /><br/>
       <TextField sx={{marginBottom:1, width:'21.5vw'}} name='name' type="text" id="outlined-basic" label="Name" variant="outlined" size="small" value={fname} onChange={chkFname}/><br/>
       <TextField sx={{width:'5vw', marginRight:1, marginBottom:1}} name='age' type="text" id="outlined-basic" label="Age" variant="outlined" size="small" value={age} onChange={chkAge}/>
       <TextField sx={{width:'4vw'}} name='sex' type="text" id="outlined-basic" label="Sex" variant="outlined" size="small" value={sex} onChange={chkSex}/><br/>
@@ -248,7 +260,7 @@ export default function BookTicketForm() {
       <Modal open={open} 
              onClose={handleClose}
              sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-            <Box sx={{width:350, height:550, bgcolor: 'success.main'}}>
+            <Box sx={{width:350, height:600, bgcolor: 'success.main'}} id="TicketToSave">
               <p>UID: {uid}</p>
               <p>Booked Date: {date} </p>
               <p>Route: {route}</p>
@@ -262,6 +274,7 @@ export default function BookTicketForm() {
               <p>Age: {age} </p>
               <p>Sex: {sex} </p>
               <p>Address: {address} </p>
+
               <Button sx={{marginBottom:2}} type="submit" form='BookTicket' variant="contained">Book Ticket</Button>
             </Box>
       </Modal>
