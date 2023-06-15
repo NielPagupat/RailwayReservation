@@ -74,6 +74,11 @@ export default function BookTicketForm() {
   }
  }, cat)
 
+ if (date!=undefined && route !=undefined && source != undefined && train != undefined && sched != undefined && destination != undefined && 
+    cat != undefined && fare != undefined && fname != undefined && age != undefined && address != undefined && sex != undefined) {
+  document.querySelector('#ConfirmButton').style.display = 'block'
+  }
+
   const chkFare = (ev) => {
     setTime(ev.target.value);
   }
@@ -254,7 +259,7 @@ export default function BookTicketForm() {
       <TextField sx={{width:55, marginRight:.5, marginBottom:1}} name='age' type="text" id="outlined-basic" label="Age" variant="outlined" size="small" value={age} onChange={chkAge}/>
       <TextField sx={{width:55}} name='sex' type="text" id="outlined-basic" label="Sex" variant="outlined" size="small" value={sex} onChange={chkSex}/><br/>
       <TextField sx={{width:396, marginBottom:2}} name='address' type="text" id="outlined-basic" label="Address" variant="outlined" size="small" value={address} onChange={chkAddress}/><br/>
-      <Button onClick={handleOpen} variant="contained">Proceed to Confirmation</Button>
+      <Button onClick={handleOpen} variant="contained" id='ConfirmButton' sx={{display:'none'}}>Proceed to Confirmation</Button>
       
       <Modal open={open} 
              onClose={handleClose}
@@ -311,7 +316,7 @@ export default function BookTicketForm() {
                     <Typography sx={{fontFamily:'Arial', fontSize:16}}>{address}</Typography>
                     </Box>
                     </Box>
-                    <Button sx={{marginTop:5}} onClick={SaveTicket} variant="contained">Book Ticket</Button>
+                    <Button sx={{marginTop:5}} onClick={SaveTicket} variant="contained" >Book Ticket</Button>
                   </Box>
             </Box>
             
