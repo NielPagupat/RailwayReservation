@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import '@fontsource/teko/500.css';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box/Box';
-import Typography  from '@mui/material/styles/createTypography';
+import Typography  from '@mui/material/Typography';
 import html2canvas from 'html2canvas';
 
 export default function BookTicketForm() {
@@ -30,18 +30,7 @@ export default function BookTicketForm() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  //SaveTicket
-  const saveImage = () => {
-    html2canvas(document.querySelector("#TicketToSave"), {
-      onrendered: function (canvas) {
-        var a = document.createElement('a');
-        a.href = canvas.toDataURL("image/png");
-        a.download = 'ticket.png';
-        a.click();
-      }
-    });
-    console.log('clicked')
-  }
+
   const chkDest = (ev) => {
     setDest(ev.target.value);
   }
