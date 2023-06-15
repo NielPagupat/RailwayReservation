@@ -276,8 +276,9 @@ export default function BookTicketForm() {
                   backgroundColor:'white',
                   paddingLeft:5,
                   paddingTop:3}}>
-                    <Box sx={{display: 'flex'}}>
-                    <Box id='PureTicket'>
+                    <Box sx={{display: 'flex'}}
+                    id='PureTicket'>
+                    <Box>
                     <Typography sx={{fontFamily:'Teko', fontSize:24, marginBottom:1, marginTop:1}}>Thank you for Riding with us!</Typography>
                     <Typography sx={{fontFamily:'Arial', fontSize:20, marginBottom:2}}>Your Train receipt:</Typography>
                     <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Ticket ID:</Typography>
