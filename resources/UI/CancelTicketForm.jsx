@@ -7,10 +7,10 @@ export default function CancelTicket() {
     <>
       <h1 style={{
       fontFamily: 'Teko',
-      marginLeft: 30
+      marginTop:50
       }}>Cancel Ticket</h1>
-        <form style={{marginLeft:30, marginTop:-10}} action="/cancelTicket" method='Post'>
-        <TextField sx={{marginBottom:1}}name='cancelT' id="outlined-basic" label="Insert Ticket ID" variant="outlined" size="small"/><br/>
+        <form style={{marginTop:-15}} action="/cancelTicket" method='Post'>
+        <TextField sx={{marginBottom:2}}name='cancelT' id="outlined-basic" label="Insert Ticket ID" variant="outlined" size="small"/><br/>
         <Button sx={{backgroundColor: 'red'}} type="submit" variant="contained">Cancel Ticket</Button>
       </form>
     </>
