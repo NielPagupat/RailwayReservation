@@ -126,7 +126,7 @@ export default function BookTicketForm() {
   let d = new Date(date);
   let day = d.getDate();
 
-
+  //BOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLSSSSSSSSSSSSSSSSSSSSSSSSSSS
   if (route != undefined && date != undefined) {
     if (route == 1 && day%2 == 0) {
       let routeA = document.querySelectorAll('.routeA');
