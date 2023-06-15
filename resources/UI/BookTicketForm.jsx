@@ -5,7 +5,9 @@ import Button from '@mui/material/Button';
 import '@fontsource/teko/500.css';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box/Box';
-import Typography from '@mui/material/Typography';
+import Typography  from '@mui/material/Typography';
+import html2canvas from 'html2canvas';
+import downloadjs from 'downloadjs';
 
 export default function BookTicketForm() {
   let Curdate = new Date().toJSON().slice(0, 10);
@@ -29,7 +31,15 @@ export default function BookTicketForm() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  //SaveTicket
+  const SaveTicket = async () => {
+    const canvas = await html2canvas(document.querySelector('#PureTicket'));
+    const dataURL = canvas.toDataURL('image/png');
+    downloadjs(dataURL, 'Ticket.png', 'image/png');
 
+    document.querySelector('#BookTicket').submit();
+    console.log("hello");
+  }
   const chkDest = (ev) => {
     setDest(ev.target.value);
   }
@@ -162,6 +172,7 @@ export default function BookTicketForm() {
   }
   
   return ( 
+    
     <>
     <h1 style={{
       fontFamily: 'Teko',
@@ -244,11 +255,14 @@ export default function BookTicketForm() {
       <TextField sx={{width:55}} name='sex' type="text" id="outlined-basic" label="Sex" variant="outlined" size="small" value={sex} onChange={chkSex}/><br/>
       <TextField sx={{width:396, marginBottom:2}} name='address' type="text" id="outlined-basic" label="Address" variant="outlined" size="small" value={address} onChange={chkAddress}/><br/>
       <Button onClick={handleOpen} variant="contained">Proceed to Confirmation</Button>
+      
       <Modal open={open} 
              onClose={handleClose}
-             sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+             sx={{display:'flex', justifyContent:'center', alignItems:'center'}} id='saveTicket'>
+            
             <Box sx={{
               display: 'flex'}}>
+                
                 <Box sx={{
                   width:300, 
                   height:550, 
@@ -263,7 +277,7 @@ export default function BookTicketForm() {
                   paddingLeft:5,
                   paddingTop:3}}>
                     <Box sx={{display: 'flex'}}>
-                    <Box>
+                    <Box id='PureTicket'>
                     <Typography sx={{fontFamily:'Teko', fontSize:24, marginBottom:1, marginTop:1}}>Thank you for Riding with us!</Typography>
                     <Typography sx={{fontFamily:'Arial', fontSize:20, marginBottom:2}}>Your Train receipt:</Typography>
                     <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Ticket ID:</Typography>
@@ -296,16 +310,20 @@ export default function BookTicketForm() {
                     <Typography sx={{fontFamily:'Arial', fontSize:16}}>{address}</Typography>
                     </Box>
                     </Box>
-                    <Button sx={{marginTop:5}} type="submit" form='BookTicket' variant="contained">Book Ticket</Button>
+                    <Button sx={{marginTop:5}} onClick={SaveTicket} variant="contained">Book Ticket</Button>
                   </Box>
             </Box>
+            
       </Modal>
       
+      
+
+      
+      
     </form>
-
-
-
+    
     </>
+   
   )
 }
 
