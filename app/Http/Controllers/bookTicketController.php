@@ -19,7 +19,7 @@ class bookTicketController extends Controller
             'source' => 'required',
             'destination' => 'required',
             'sched' => 'required',
-            'time' => 'required',
+            'fare' => 'required',
             'cat' => 'required',
             'name' => 'required',
             'age' => 'required',

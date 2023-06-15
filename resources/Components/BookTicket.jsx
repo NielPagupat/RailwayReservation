@@ -55,11 +55,18 @@ export default function SignInSide() {
             backgroundPosition: 'center',
           }}
         />
-        <Grid item xs={12} sm={8} md={4} component={Paper} elevation={6} square>
-          <Box>
+        <Grid sx={{width:300, 
+                  height:809, 
+                  backgroundImage: 'url(https://cdn.discordapp.com/attachments/1072506851662499891/1118826654362509354/transparentBox.png)',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'}} item xs={12} sm={8} md={3.5} elevation={6} square>
+          <center>
+          <Box component={Paper} sx={{marginX:3, height:'73vh', borderRadius:5}}>
             <BookTicketForm />
             <CancelTicket />
           </Box>
+          </center>
         </Grid>
       </Grid>
     </ThemeProvider>

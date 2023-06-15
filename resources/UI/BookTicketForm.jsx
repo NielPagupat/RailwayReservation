@@ -177,22 +177,22 @@ export default function BookTicketForm() {
     <>
     <h1 style={{
       fontFamily: 'Teko',
+      paddingTop:25,
       marginTop: 50,
-      marginLeft: 30,
       marginBottom: 10
       }}>Book Ticket</h1>
-    <form style={{marginLeft: 30}}action='/bookTicket' method='Post' id='BookTicket'>
+    <form style={{}}action='/bookTicket' method='Post' id='BookTicket'>
       <input type="text" name='uid' value={uid} hidden onChange={chkUID}/>
 
-      <TextField sx={{marginBottom: 3}} name='bookDt' type='date' size="small" value={date} onChange={chkDate}/><br/>
+      <TextField sx={{marginBottom:1}} name='bookDt' type='date' size="small" value={date} onChange={chkDate}/>
       
-      <select style={{padding: 10, marginRight: 5, marginBottom: 10}} name="route" id="rt" value={route} onChange={chkRoute}>
+      <select style={{padding: 10, marginLeft: 5, width:165}} name="route" id="rt" value={route} onChange={chkRoute}>
         <option value="0" disabled selected>Route</option>
         <option value="1">CDO-Davao</option>
         <option value='2'>Davao-CDO</option>
-      </select>
+      </select><br/>
       
-      <select style={{padding: 10, marginRight:5}} name="source" id="source" value={source} onChange={chkSource}>
+      <select style={{padding: 10, marginRight:5, width:164, marginBottom:10}} name="source" id="source" value={source} onChange={chkSource}>
         <option value="source" disabled selected>Source</option>
         <option value="CDO">CDO</option>
         <option value="Malaybalay">Malaybalay</option>
@@ -204,7 +204,7 @@ export default function BookTicketForm() {
         <option value="Davao">Davao</option>
       </select>
       
-      <select style={{padding: 10}} name="destination" id="destination" value={destination} onChange={chkDest}>
+      <select style={{padding: 10, width:166}} name="destination" id="destination" value={destination} onChange={chkDest}>
         <option value="dest" disabled selected>Destination</option>
         <option value="CDO">CDO</option>
         <option value="Malaybalay">Malaybalay</option>
@@ -216,7 +216,7 @@ export default function BookTicketForm() {
         <option value="Davao">Davao</option>
       </select><br/>
 
-      <select style={{padding: 10, width:'6.3vw', marginRight: 5, marginBottom:30}} name="tNo" id="trainName" value={train} onChange={chkTrain} >
+      <select style={{padding: 10, width:'11.5vw', marginRight: 10, marginBottom:10, marginLeft:10}} name="tNo" id="trainName" value={train} onChange={chkTrain} >
         <option selected disabled>Train</option>
         <option value="T01" class='routeA'>Orange</option>
         <option value="T02" class='routeA'>Blue</option>
@@ -232,7 +232,7 @@ export default function BookTicketForm() {
       
       
      
-      <select style={{padding: 10, marginRight: 10, marginBottom: 20}} name="sched" id="sched" value={sched} onChange={chkSched}>
+      <select style={{padding: 10, marginRight: 10, width:'6vw'}} name="sched" id="sched" value={sched} onChange={chkSched}>
         <option value="sched" disabled selected>Schedule</option>
         <option value="AM">AM</option>
         <option value="PM1">PM1</option>
@@ -244,38 +244,53 @@ export default function BookTicketForm() {
     
     <br/>
       
-      <select style={{padding: 10, marginBottom: 30, marginRight:10, width:'7.5vw'}} name="cat" id="cat" value={cat} onChange={chkCat}>
+      <select style={{padding: 10, marginBottom: 30, marginRight:10, width:'11.5vw'}} name="cat" id="cat" value={cat} onChange={chkCat}>
         <option value="" disabled selected>Seat Category</option>
         <option value="1">AC seat</option>
         <option value="2">Gen seat</option>
       </select>
 
-      <TextField sx={{width: '5.6vw'}} name='fare' type="text" id="outlined-basic" variant="outlined" size="small" value={fare} onChange={chkFare} /><br/>
-      <TextField sx={{marginBottom:1, width:'21.5vw'}} name='name' type="text" id="outlined-basic" label="Name" variant="outlined" size="small" value={fname} onChange={chkFname}/><br/>
-      <TextField sx={{width:'5vw', marginRight:1, marginBottom:1}} name='age' type="text" id="outlined-basic" label="Age" variant="outlined" size="small" value={age} onChange={chkAge}/>
-      <TextField sx={{width:'4vw'}} name='sex' type="text" id="outlined-basic" label="Sex" variant="outlined" size="small" value={sex} onChange={chkSex}/><br/>
-      <TextField sx={{width:'21.5vw', marginBottom:1}} name='address' type="text" id="outlined-basic" label="Address" variant="outlined" size="small" value={address} onChange={chkAddress}/><br/>
-      {/*<Button sx={{marginBottom:2}} type="submit" variant="contained">Book Ticket</Button>*/}
-      <Button onClick={handleOpen}>BookTicket</Button>
+      <TextField sx={{width: '6vw'}} name='fare' type="text" id="outlined-basic" placeholder='Fare' variant="outlined" size="small" value={fare} onChange={chkFare} /><br/>
+      <TextField sx={{marginBottom:1, width:'15vw', marginRight: 1}} name='name' type="text" id="outlined-basic" label="Name" variant="outlined" size="small" value={fname} onChange={chkFname}/>
+      <TextField sx={{width:'3vw', marginRight:.5, marginBottom:1}} name='age' type="text" id="outlined-basic" label="Age" variant="outlined" size="small" value={age} onChange={chkAge}/>
+      <TextField sx={{width:'3vw'}} name='sex' type="text" id="outlined-basic" label="Sex" variant="outlined" size="small" value={sex} onChange={chkSex}/><br/>
+      <TextField sx={{width:'21.7vw', marginBottom:2}} name='address' type="text" id="outlined-basic" label="Address" variant="outlined" size="small" value={address} onChange={chkAddress}/><br/>
+      <Button onClick={handleOpen} variant="contained">Proceed to Confirmation</Button>
       <Modal open={open} 
              onClose={handleClose}
              sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-            <Box sx={{width:350, height:600, bgcolor: 'success.main'}} id="TicketToSave">
-              <p>UID: {uid}</p>
-              <p>Booked Date: {date} </p>
-              <p>Route: {route}</p>
-              <p>Source: {source} </p>
-              <p>Destination: {destination} </p>
-              <p>Train NO.: {train} </p>
-              <p>Schedule: {sched} </p>
-              <p>Fare: {fare}</p>
-              <p>Seating Category: {cat} </p>
-              <p>Name: {fname} </p>
-              <p>Age: {age} </p>
-              <p>Sex: {sex} </p>
-              <p>Address: {address} </p>
-
-              <Button sx={{marginBottom:2}} type="submit" form='BookTicket' variant="contained">Book Ticket</Button>
+            <Box sx={{
+              display: 'flex'}}>
+                <Box sx={{
+                  width:300, 
+                  height:550, 
+                  backgroundImage: 'url(https://source.unsplash.com/random/?train,railways)',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'}}></Box>
+                <Box sx={{
+                  width:500, 
+                  height:550,
+                  backgroundColor:'white',
+                  paddingLeft:5,
+                  paddingTop:3}}>
+                    <Typography sx={{fontFamily:'Teko', fontSize:24, marginBottom:2}}>Thank you for Riding with us!</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:20, fontWeight:'bold'}}>Your Train receipt:</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Ticket ID:{uid}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Date: {date}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Route: {route}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Source: {source}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Destination: {destination}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Train: {train}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Schedule: {sched}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Fare: ₱{fare}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Train Category:{cat}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>First Name: {fname}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Age: {age}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Sex: {sex}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Address: {address}</Typography>
+                    <Button sx={{marginTop:5}} type="submit" form='BookTicket' variant="contained">Book Ticket</Button>
+                  </Box>
             </Box>
       </Modal>
       
