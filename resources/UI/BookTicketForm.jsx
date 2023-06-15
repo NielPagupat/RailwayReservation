@@ -204,7 +204,7 @@ export default function BookTicketForm() {
         <option value="Davao">Davao</option>
       </select><br/>
 
-      <select style={{padding: 10, width:'11.5vw', marginRight: 10, marginBottom:10, marginLeft:10}} name="tNo" id="trainName" value={train} onChange={chkTrain} >
+      <select style={{padding: 10, width:215, marginRight: 10, marginBottom:10, marginLeft:10}} name="tNo" id="trainName" value={train} onChange={chkTrain} >
         <option selected disabled>Train</option>
         <option value="T01" class='routeA'>Orange</option>
         <option value="T02" class='routeA'>Blue</option>
@@ -220,7 +220,7 @@ export default function BookTicketForm() {
       
       
      
-      <select style={{padding: 10, marginRight: 10, width:'6vw'}} name="sched" id="sched" value={sched} onChange={chkSched}>
+      <select style={{padding: 10, marginRight: 10, width:110}} name="sched" id="sched" value={sched} onChange={chkSched}>
         <option value="sched" disabled selected>Schedule</option>
         <option value="AM">AM</option>
         <option value="PM1">PM1</option>
@@ -232,17 +232,17 @@ export default function BookTicketForm() {
     
     <br/>
       
-      <select style={{padding: 10, marginBottom: 30, marginRight:10, width:'11.5vw'}} name="cat" id="cat" value={cat} onChange={chkCat}>
+      <select style={{padding: 10, marginBottom: 30, marginRight:10, width:215}} name="cat" id="cat" value={cat} onChange={chkCat}>
         <option value="" disabled selected>Seat Category</option>
         <option value="1">AC seat</option>
         <option value="2">Gen seat</option>
       </select>
 
-      <TextField sx={{width: '6vw'}} name='fare' type="text" id="outlined-basic" placeholder='Fare' variant="outlined" size="small" value={fare} onChange={chkFare} /><br/>
-      <TextField sx={{marginBottom:1, width:'15vw', marginRight: 1}} name='name' type="text" id="outlined-basic" label="Name" variant="outlined" size="small" value={fname} onChange={chkFname}/>
-      <TextField sx={{width:'3vw', marginRight:.5, marginBottom:1}} name='age' type="text" id="outlined-basic" label="Age" variant="outlined" size="small" value={age} onChange={chkAge}/>
-      <TextField sx={{width:'3vw'}} name='sex' type="text" id="outlined-basic" label="Sex" variant="outlined" size="small" value={sex} onChange={chkSex}/><br/>
-      <TextField sx={{width:'21.7vw', marginBottom:2}} name='address' type="text" id="outlined-basic" label="Address" variant="outlined" size="small" value={address} onChange={chkAddress}/><br/>
+      <TextField sx={{width:110}} name='fare' type="text" id="outlined-basic" placeholder='Fare' variant="outlined" size="small" value={fare} onChange={chkFare} /><br/>
+      <TextField sx={{marginBottom:1, width:275, marginRight: 1}} name='name' type="text" id="outlined-basic" label="Name" variant="outlined" size="small" value={fname} onChange={chkFname}/>
+      <TextField sx={{width:55, marginRight:.5, marginBottom:1}} name='age' type="text" id="outlined-basic" label="Age" variant="outlined" size="small" value={age} onChange={chkAge}/>
+      <TextField sx={{width:55}} name='sex' type="text" id="outlined-basic" label="Sex" variant="outlined" size="small" value={sex} onChange={chkSex}/><br/>
+      <TextField sx={{width:396, marginBottom:2}} name='address' type="text" id="outlined-basic" label="Address" variant="outlined" size="small" value={address} onChange={chkAddress}/><br/>
       <Button onClick={handleOpen} variant="contained">Proceed to Confirmation</Button>
       <Modal open={open} 
              onClose={handleClose}
@@ -257,26 +257,45 @@ export default function BookTicketForm() {
                   backgroundSize: 'cover',
                   backgroundPosition: 'center'}}></Box>
                 <Box sx={{
-                  width:500, 
+                  width:450, 
                   height:550,
                   backgroundColor:'white',
                   paddingLeft:5,
                   paddingTop:3}}>
-                    <Typography sx={{fontFamily:'Teko', fontSize:24, marginBottom:2}}>Thank you for Riding with us!</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:20, fontWeight:'bold'}}>Your Train receipt:</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Ticket ID:{uid}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Date: {date}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Route: {route}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Source: {source}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Destination: {destination}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Train: {train}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Schedule: {sched}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Fare: ₱{fare}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Train Category:{cat}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>First Name: {fname}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Age: {age}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Sex: {sex}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Address: {address}</Typography>
+                    <Box sx={{display: 'flex'}}>
+                    <Box>
+                    <Typography sx={{fontFamily:'Teko', fontSize:24, marginBottom:1, marginTop:1}}>Thank you for Riding with us!</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:20, marginBottom:2}}>Your Train receipt:</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Ticket ID:</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Date:</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Route:</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Source:</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Destination:</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Train:</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Schedule:</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Fare:</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Train Category:</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>First Name:</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Age:</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Sex:</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Address:</Typography>
+                    </Box>
+                    <Box sx={{marginTop:12.3}}>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{uid}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{date}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{route}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{source}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{destination}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{train}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{sched}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>₱{fare}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{cat}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{fname}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{age}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{sex}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{address}</Typography>
+                    </Box>
+                    </Box>
                     <Button sx={{marginTop:5}} type="submit" form='BookTicket' variant="contained">Book Ticket</Button>
                   </Box>
             </Box>

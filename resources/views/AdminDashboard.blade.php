@@ -9,10 +9,10 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/ffcaa4aa40.js" crossorigin="anonymous"></script>
         <!-- Styles -->
         <!--@viteReactRefresh
@@ -36,47 +36,27 @@
 
     </style>
     <body>
-        
         <div id="AdminDashboard">
-        <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-        <i class="fa-solid fa-train text-light"></i>
-        <a class="navbar-brand text-light" href="/">BOLS Admin</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown link
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="/">LogOut</a>
-                    </div>
-                </li>
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark px-4 d-flex justify-content-between">
+        <div>
+            <i class="fa-solid fa-train fa-2x text-light"></i>
+            <a class="navbar-brand text-light ms-2 fw-light font-monospace" href="/">BOLS Admin</a>
+        </div>
+            <div class="dropdown">
+            <a class="navbar-brand text-light fw-light" href="#" onclick=showPassengers()>Passengers</a>
+            <a class="navbar-brand text-light fw-light" href="#" onclick=showTraintbl()>Trains</a>
+            <a class="navbar-brand text-light fw-light" href="#" onclick=showTrainStat()>Train Status</a>
+            <a class="navbar-brand text-light fw-light" href="#" onclick=Reports()>Reports</a>
+                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  ADMIN
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/">Log out</a></li>
                 </ul>
             </div>
         </nav>
         </div>
-        <div class='d-flex'>
-            <div class='d-flex flex-column flex-grow-1'>
-                <Button class="btn m-1" onclick=showPassengers()>Passengers</Button>
-                <Button class="btn m-1" onclick=showTraintbl()>Trains</Button>
-                <Button class="btn m-1" onclick=showTrainStat()>Train Status</Button>
-                <Button class="btn m-1" onclick=Reports()>Reports</Button>
-            </div>
-
+        <div>
             <div id='passengertbl' class='flex-grow-3 hidden' >
                 <h1>Passengers</h1>
                 <div class='w-100 overflow'>
