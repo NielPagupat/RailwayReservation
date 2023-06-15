@@ -42,7 +42,7 @@ export default function BookTicketForm() {
   }
   const chkDest = (ev) => {
     setDest(ev.target.value);
-  }
+    }
 
   const chkTrain = (ev) => {
     setTrain(ev.target.value);
