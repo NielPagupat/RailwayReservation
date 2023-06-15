@@ -31,7 +31,7 @@ export default function SignInSide({}) {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: '85vh'}}>
+      <Grid container component="main" sx={{ height: '45vw'}}>
         <CssBaseline />
         <Grid
           item
@@ -49,13 +49,13 @@ export default function SignInSide({}) {
           }}
         />
         <Grid sx={{width:300, 
-                  height:809, 
+                  height:'45vw', 
                   backgroundImage: 'url(https://cdn.discordapp.com/attachments/1072506851662499891/1118826654362509354/transparentBox.png)',
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center'}} item xs={12} sm={8} md={3.5} elevation={6} square>
           <center>
-          <Box component={Paper} sx={{marginX:3, height:'73vh', borderRadius:5}}>
+          <Box component={Paper} sx={{marginX:3, height:'38vw', borderRadius:5}}>
             <BookTicketForm />
             <CancelTicket />
           </Box>
