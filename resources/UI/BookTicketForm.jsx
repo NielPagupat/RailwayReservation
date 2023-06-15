@@ -7,7 +7,8 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box/Box';
 import Typography  from '@mui/material/Typography';
 import html2canvas from 'html2canvas';
-
+import downloadjs from 'downloadjs';
+import LoadingOverlay from 'react-loading-overlay';
 export default function BookTicketForm() {
   let Curdate = new Date().toJSON().slice(0, 10);
   const [date, setDate] = useState(Curdate);
@@ -30,7 +31,15 @@ export default function BookTicketForm() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  //SaveTicket
+  const SaveTicket = async () => {
+    const canvas = await html2canvas(document.querySelector('#PureTicket'));
+    const dataURL = canvas.toDataURL('image/png');
+    downloadjs(dataURL, 'Ticket.png', 'image/png');
 
+    document.querySelector('#BookTicket').submit();
+    console.log("hello");
+  }
   const chkDest = (ev) => {
     setDest(ev.target.value);
   }
@@ -163,6 +172,7 @@ export default function BookTicketForm() {
   }
   
   return ( 
+    
     <>
     <h1 style={{
       fontFamily: 'Teko',
@@ -245,11 +255,14 @@ export default function BookTicketForm() {
       <TextField sx={{width:'3vw'}} name='sex' type="text" id="outlined-basic" label="Sex" variant="outlined" size="small" value={sex} onChange={chkSex}/><br/>
       <TextField sx={{width:'21.7vw', marginBottom:2}} name='address' type="text" id="outlined-basic" label="Address" variant="outlined" size="small" value={address} onChange={chkAddress}/><br/>
       <Button onClick={handleOpen} variant="contained">Proceed to Confirmation</Button>
+      
       <Modal open={open} 
              onClose={handleClose}
-             sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
+             sx={{display:'flex', justifyContent:'center', alignItems:'center'}} id='saveTicket'>
+            
             <Box sx={{
               display: 'flex'}}>
+                
                 <Box sx={{
                   width:300, 
                   height:550, 
@@ -262,32 +275,40 @@ export default function BookTicketForm() {
                   height:550,
                   backgroundColor:'white',
                   paddingLeft:5,
-                  paddingTop:3}}>
-                    <Typography sx={{fontFamily:'Teko', fontSize:24, marginBottom:2}}>Thank you for Riding with us!</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:20, fontWeight:'bold'}}>Your Train receipt:</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Ticket ID:{uid}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Date: {date}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Route: {route}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Source: {source}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Destination: {destination}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Train: {train}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Schedule: {sched}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Fare: ₱{fare}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Train Category:{cat}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>First Name: {fname}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Age: {age}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Sex: {sex}</Typography>
-                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>Address: {address}</Typography>
-                    <Button sx={{marginTop:5}} type="submit" form='BookTicket' variant="contained">Book Ticket</Button>
-                  </Box>
+                  paddingTop:3,
+                  align: 'justify'}}>
+                    <Box id='PureTicket'>
+                      <Typography sx={{fontFamily:'Teko', fontSize:24, marginBottom:2}}>Thank you for Riding with us!</Typography>
+                      <Typography sx={{fontFamily:'Arial', fontSize:20, fontWeight:'bold'}}>Your Train receipt:</Typography>
+                      <Typography sx={{fontFamily:'Arial', fontSize:16}}>Ticket ID:{uid}</Typography>
+                      <Typography sx={{fontFamily:'Arial', fontSize:16}}>Date: {date}</Typography>
+                      <Typography sx={{fontFamily:'Arial', fontSize:16}}>Route: {route}</Typography>
+                      <Typography sx={{fontFamily:'Arial', fontSize:16}}>Source: {source}</Typography>
+                      <Typography sx={{fontFamily:'Arial', fontSize:16}}>Destination: {destination}</Typography>
+                      <Typography sx={{fontFamily:'Arial', fontSize:16}}>Train: {train}</Typography>
+                      <Typography sx={{fontFamily:'Arial', fontSize:16}}>Schedule: {sched}</Typography>
+                      <Typography sx={{fontFamily:'Arial', fontSize:16}}>Fare: ₱{fare}</Typography>
+                      <Typography sx={{fontFamily:'Arial', fontSize:16}}>Train Category:{cat}</Typography>
+                      <Typography sx={{fontFamily:'Arial', fontSize:16}}>First Name: {fname}</Typography>
+                      <Typography sx={{fontFamily:'Arial', fontSize:16}}>Age: {age}</Typography>
+                      <Typography sx={{fontFamily:'Arial', fontSize:16}}>Sex: {sex}</Typography>
+                      <Typography sx={{fontFamily:'Arial', fontSize:16}}>Address: {address}</Typography>
+                    </Box>
+                    <Button sx={{marginTop:5}} onClick={SaveTicket} id='bookT' variant="contained">Book Ticket</Button>
+                  </Box> 
+
             </Box>
+            
       </Modal>
       
+      
+
+      
+      
     </form>
-
-
-
+    
     </>
+   
   )
 }
 
