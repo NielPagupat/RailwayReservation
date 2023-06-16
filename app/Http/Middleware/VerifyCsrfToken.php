@@ -17,6 +17,8 @@ class VerifyCsrfToken extends Middleware
         '/login',
         '/register',
         '/dash',
-        '/pass'
+        '/pass',
+        '/DashAdmin',
+        '/api/getReport'
     ];
 }

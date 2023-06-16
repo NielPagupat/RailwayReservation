@@ -242,7 +242,7 @@ export default function BookTicketForm() {
         <option value="PM2">PM2</option>
         <option value="EVE1">EVE1</option>
         <option value="EVE2">EVE2</option>
-    </select>
+      </select>
     
     
     <br/>
@@ -253,7 +253,7 @@ export default function BookTicketForm() {
         <option value="2">Gen seat</option>
       </select>
 
-      <TextField sx={{width:110}} name='fare' type="text" id="outlined-basic" placeholder='Fare' variant="outlined" size="small" value={fare} onChange={chkFare} /><br/>
+      <TextField sx={{width:110}} name='fare' type="text" id="outlined-basic" placeholder='Fare' variant="outlined" size="small" value={fare} onChange={chkFare} inputProps={{readOnly:true}}/><br/>
       <TextField sx={{marginBottom:1, width:275, marginRight: 1}} name='name' type="text" id="outlined-basic" label="Name" variant="outlined" size="small" value={fname} onChange={chkFname}/>
       <TextField sx={{width:55, marginRight:.5, marginBottom:1}} name='age' type="text" id="outlined-basic" label="Age" variant="outlined" size="small" value={age} onChange={chkAge}/>
       <TextField sx={{width:55}} name='sex' type="text" id="outlined-basic" label="Sex" variant="outlined" size="small" value={sex} onChange={chkSex}/><br/>
