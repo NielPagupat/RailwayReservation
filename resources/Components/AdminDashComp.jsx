@@ -19,6 +19,9 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { mainListItems, secondaryListItems } from './listItems';
 import { Button } from '@mui/material';
 import GetData from '../Helpers/GetData';
+import axios from 'axios';
+import { useState } from 'react';
+import { Train } from '@mui/icons-material';
 
 
 function Copyright(props) {
@@ -88,12 +91,58 @@ export default function Dashboard() {
   const toggleDrawer = () => {
     setOpen(!open);
   };
-
-  const clickMeBaby = async (event) => {
-    let result = await GetData('/pass');
-
-    console.log(result);
+  
+  const [trainNo, setTrainNo] = useState('T01');
+  const [date, setDate] = useState('2023/06/03');
+  
+  const [Passenger, SetPassenger] = useState([]);
+  const [Trains, setTrains] = useState([]);
+  const [TrainStat, setTrainStat] = useState([]);
+  const [GenReport, setGenReport] = useState();
+  const [ACReport, setACReport] = useState();
+  
+  const getData = () => {
   }
+
+    const getPassenger = async () => {
+      const result = await axios.get('/api/allPassenger');
+      SetPassenger(result.data.allPass);
+      console.log(result.data.allPass)
+    }
+    const getTrain = async () => {
+      const result = await axios.get('/api/allTrain');
+      setTrains(result.data.allTrains);
+      console.log(result)
+
+    }
+    const getTrainStatus = async () => {
+      const result = await axios.get('/api/allTrainStat');
+      setTrainStat(result.data.allTrainStat)
+      console.log(result)
+
+    }
+    const getGenSeatReport = async () => {
+      const result = await axios.get('/api/getGenSeatReport',{
+        params: {
+          'TrainNumber' : document.querySelector('#trainNo').value,
+          'date' : document.querySelector('#trainDate').value
+        }
+      });
+      console.log(result)
+      
+
+    }
+    const getACSeatReport = async () => {
+      const result = await axios.get('/api/getACSeatReport', {
+        params: {
+          'TrainNumber' : document.querySelector('#trainNo').value,
+          'date' : document.querySelector('#trainDate').value
+        }
+      });
+      console.log(result)
+
+    }
+
 
 
   return (
@@ -147,10 +196,14 @@ export default function Dashboard() {
           </Toolbar>
           <Divider />
           <List component="nav" sx={{display:'flex', flexDirection:'column'}}>
-            <Button href='/pass' type='submit' formmethod="GET" >Hello</Button>
-            <button onClick={clickity}>HI</button>
+            <Button onClick={getData}>Click Me</Button>
             <Divider sx={{ my: 1 }} />
-            {secondaryListItems}
+            <Button onClick={getPassenger}>Passengers</Button>
+            <Button onClick={getTrain}>Train List</Button>
+            <Button onClick={getTrainStatus}>Train Status</Button>
+            <Button onClick={getGenSeatReport}>Gen Seat Report</Button>
+            <Button onClick={getACSeatReport}>AC Seat Report</Button>
+            <Button></Button>
           </List>
         </Drawer>
         <Box
@@ -166,42 +219,17 @@ export default function Dashboard() {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}>
-
-                    <div id='passengers'>Hello</div>
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 , display:'flex'}}>
+            <Box sx={{flexGrow:1}}>
+              <Paper sx={{flexGrow:1}} >
+                <input type="text" id='trainNo' />
+                <input type="date" id='trainDate' />
+                <Paper>
+                  
                   
                 </Paper>
-              </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  <div></div>
-                </Paper>
-              </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                    other side 
-                </Paper>
-              </Grid>
-            </Grid>
+              </Paper>
+            </Box>
           </Container>
         </Box>
       </Box>

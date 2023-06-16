@@ -41,11 +41,7 @@ Route::post('/cancelTicket', [cancelTicketController::class, 'cancelTicket']);
 
 
 Route::get('/dash', function (){
-    $pngr = Passenger::all();
-    $tlist = Train_status::all();
-    $trainl = Trainlist::all();
-    $data = [$pngr, $tlist, $trainl];
-    return view('AdminDashboard', ['data'=>$data]);
+    return view('DashAdmin');
 });
 
 Route::get('/getGenReport', [GetGenReport::class, 'getGenReport']);

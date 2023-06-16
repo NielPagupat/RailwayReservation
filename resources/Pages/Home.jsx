@@ -2,6 +2,8 @@ import React from 'react'
 import BookTicket from '../Components/BookTicket'
 import ResponsiveAppBar from '../Components/NavBar'
 import Box from '@mui/material/Box'
+import LoadingOverlay from 'react-loading-overlay'
+import { ClockLoader } from 'react-spinners'
 
 export default function Home() {
   return (
