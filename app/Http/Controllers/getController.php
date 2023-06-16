@@ -34,4 +34,12 @@ class getController extends Controller
         $report = DB::select('call bookingReportAC(?,?)', array($trainNo, $date));
         return response() -> json(['status'=> 200, 'reportRes' => $report]);
     }
+
+    public function getXML() {
+        
+        $xml = simplexml_load_file('out.xml');
+        
+
+        return response() -> json(['status' => 200, 'xmlOutput' => $xml]);
+    }
 }
