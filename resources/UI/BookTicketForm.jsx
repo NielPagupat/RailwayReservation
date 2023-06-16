@@ -25,7 +25,6 @@ export default function BookTicketForm() {
   const [sex, setSex] = useState();
   const [address, setAddress] = useState();
   
-  
   //Modal
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -42,7 +41,7 @@ export default function BookTicketForm() {
   }
   const chkDest = (ev) => {
     setDest(ev.target.value);
-    }
+  }
 
   const chkTrain = (ev) => {
     setTrain(ev.target.value);
@@ -73,11 +72,6 @@ export default function BookTicketForm() {
     setFare('150')
   }
  }, cat)
-
- if (date!=undefined && route !=undefined && source != undefined && train != undefined && sched != undefined && destination != undefined && 
-    cat != undefined && fare != undefined && fname != undefined && age != undefined && address != undefined && sex != undefined) {
-  document.querySelector('#ConfirmButton').style.display = 'block'
-  }
 
   const chkFare = (ev) => {
     setTime(ev.target.value);
@@ -126,7 +120,7 @@ export default function BookTicketForm() {
   let d = new Date(date);
   let day = d.getDate();
 
-  //BOOOOOOOOOOOOOOOOOLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
   if (route != undefined && date != undefined) {
     if (route == 1 && day%2 == 0) {
       let routeA = document.querySelectorAll('.routeA');
@@ -172,6 +166,11 @@ export default function BookTicketForm() {
       }
       routeA.forEach(iterate);
       routeB.forEach(iterate2);
+    }
+
+    if (date!=undefined && route !=undefined && source != undefined && train != undefined && sched != undefined && destination != undefined && 
+      cat != undefined && fare != undefined && fname != undefined && age != undefined && address != undefined && sex != undefined) {
+    document.querySelector('#ConfirmButton').style.display = 'block'
     }
 
   }
@@ -259,7 +258,7 @@ export default function BookTicketForm() {
       <TextField sx={{width:55, marginRight:.5, marginBottom:1}} name='age' type="text" id="outlined-basic" label="Age" variant="outlined" size="small" value={age} onChange={chkAge}/>
       <TextField sx={{width:55}} name='sex' type="text" id="outlined-basic" label="Sex" variant="outlined" size="small" value={sex} onChange={chkSex}/><br/>
       <TextField sx={{width:396, marginBottom:2}} name='address' type="text" id="outlined-basic" label="Address" variant="outlined" size="small" value={address} onChange={chkAddress}/><br/>
-      <Button onClick={handleOpen} variant="contained" id='ConfirmButton' sx={{display:'none'}}>Proceed to Confirmation</Button>
+      <Button onClick={handleOpen} id="ConfirmButton" variant="contained" sx={{display:'none'}}>Proceed to Confirmation</Button>
       
       <Modal open={open} 
              onClose={handleClose}
@@ -316,16 +315,10 @@ export default function BookTicketForm() {
                     <Typography sx={{fontFamily:'Arial', fontSize:16}}>{address}</Typography>
                     </Box>
                     </Box>
-                    <Button sx={{marginTop:5}} onClick={SaveTicket} variant="contained" >Book Ticket</Button>
+                    <Button sx={{marginTop:5}} onClick={SaveTicket} variant="contained">Book Ticket</Button>
                   </Box>
-            </Box>
-            
+            </Box> 
       </Modal>
-      
-      
-
-      
-      
     </form>
     
     </>
