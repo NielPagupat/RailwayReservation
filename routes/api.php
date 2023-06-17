@@ -28,4 +28,6 @@ Route::get('allTrainStat',[getController::class, 'getTrainStat']);
 Route::get('getGenSeatReport',[getController::class, 'getGenReport']);
 Route::get('getACSeatReport',[getController::class, 'getACReport']);
 Route::get('xmlLoad',[getController::class, 'getXML']);
+Route::get('getTotalPassengersBooked',[getController::class, 'indentifyStatus']);
+Route::get('getPassenger',[getController::class, 'getPassengerInfo']);
 

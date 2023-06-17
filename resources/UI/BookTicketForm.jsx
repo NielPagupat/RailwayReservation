@@ -8,6 +8,7 @@ import Box from '@mui/material/Box/Box';
 import Typography  from '@mui/material/Typography';
 import html2canvas from 'html2canvas';
 import downloadjs from 'downloadjs';
+import axios from 'axios';
 
 export default function BookTicketForm() {
   let Curdate = new Date().toJSON().slice(0, 10);
@@ -24,7 +25,7 @@ export default function BookTicketForm() {
   const [age, setAge] = useState();
   const [sex, setSex] = useState();
   const [address, setAddress] = useState();
-  
+  const [status, setStatus] = useState();
   
   //Modal
   const [open, setOpen] = React.useState(false);
@@ -40,12 +41,33 @@ export default function BookTicketForm() {
     document.querySelector('#BookTicket').submit();
     console.log("hello");
   }
+
+  //checkStatus
+  const chkStatus = async () => {
+    const result = await axios.get('api/getTotalPassengersBooked',{
+      params: {
+        'TrainNumber' : train,
+        'date' : date,
+        'route': route,
+        'category': cat
+      }
+    });
+    if (result.data.count[0].result >= 10) {
+      setStatus('Pending');
+    } else {
+      setStatus('Confirmed');
+    }
+  }
+
+
+
   const chkDest = (ev) => {
     setDest(ev.target.value);
     }
 
   const chkTrain = (ev) => {
     setTrain(ev.target.value);
+    
   }
   
   useEffect(()=>{
@@ -65,6 +87,27 @@ export default function BookTicketForm() {
       setSched('EVE2')
     }
   }, train);
+
+  useEffect(()=>{
+    chkStatus();
+  }, train)
+
+  useEffect(()=>{
+    chkStatus();
+  }, train)
+
+  useEffect(()=>{
+    chkStatus();
+  }, date)
+
+  useEffect(()=>{
+    chkStatus();
+  }, route)
+
+  useEffect(()=>{
+    chkStatus();
+  }, cat)
+
 
  useEffect(()=>{
   if (cat == 1) {
@@ -187,8 +230,8 @@ export default function BookTicketForm() {
       }}>Book Ticket</h1>
     <form style={{}}action='/bookTicket' method='Post' id='BookTicket'>
       <input type="text" name='uid' value={uid} hidden onChange={chkUID}/>
-
-      <TextField sx={{marginBottom:1}} name='bookDt' type='date' size="small" value={date} onChange={chkDate}/>
+      <TextField sx={{width:350, m:1}} inputProps={{readOnly:true}} value={status} /> <br/>
+      <TextField sx={{marginBottom:1}} name='bookDt' id='bookDt' type='date' size="small" value={date} onChange={chkDate}/>
       
       <select style={{padding: 10, marginLeft: 5, width:165}} name="route" id="rt" value={route} onChange={chkRoute}>
         <option value="0" disabled selected>Route</option>
@@ -235,7 +278,7 @@ export default function BookTicketForm() {
       </select>
       
       
-     
+      
       <select style={{padding: 10, marginRight: 10, width:110}} name="sched" id="sched" value={sched} onChange={chkSched}>
         <option value="sched" disabled selected>Schedule</option>
         <option value="AM">AM</option>
@@ -287,6 +330,7 @@ export default function BookTicketForm() {
                     <Typography sx={{fontFamily:'Teko', fontSize:24, marginBottom:1, marginTop:1}}>Thank you for Riding with us!</Typography>
                     <Typography sx={{fontFamily:'Arial', fontSize:20, marginBottom:2}}>Your Train receipt:</Typography>
                     <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Ticket ID:</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Status:</Typography>
                     <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Date:</Typography>
                     <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Route:</Typography>
                     <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Source:</Typography>
@@ -302,6 +346,7 @@ export default function BookTicketForm() {
                     </Box>
                     <Box sx={{marginTop:12.3}}>
                     <Typography sx={{fontFamily:'Arial', fontSize:16}}>{uid}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{status}</Typography>
                     <Typography sx={{fontFamily:'Arial', fontSize:16}}>{date}</Typography>
                     <Typography sx={{fontFamily:'Arial', fontSize:16}}>{route}</Typography>
                     <Typography sx={{fontFamily:'Arial', fontSize:16}}>{source}</Typography>

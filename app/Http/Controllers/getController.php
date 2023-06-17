@@ -36,10 +36,33 @@ class getController extends Controller
     }
 
     public function getXML() {
-        
         $xml = simplexml_load_file('out.xml');
-        
-
         return response() -> json(['status' => 200, 'xmlOutput' => $xml]);
+    }
+            
+    public function indentifyStatus (Request $request) {
+        $trainNo = $request -> query('TrainNumber');
+        $date = $request -> query('date');
+        $route = (int)$request -> query('route');
+        $cat = (int)$request -> query('category');
+
+        $value = [$trainNo, $date, $route, $cat];
+
+        $count = DB::select("call countTicket(?,?,?,?)", array($trainNo, $date, $route, $cat));
+
+        return response() -> json(['status'=>200, 'count' => $count]);
+    }
+
+    public function getPassengerInfo(Request $request){
+        $ticketId = $request -> query('ticketId');
+        $result = DB::table('passenger')->where('ticketID', $ticketId)->exists();
+
+        if ($result) {
+            $data = DB::table('passenger')->where('ticketID', $ticketId)->first();
+            return response() -> json(['status'=>200, 'result' => $data]);
+        } else {
+            $nothing = DB::table('passenger')->where('ticketID', '0000000000')->first();
+            return response() -> json(['status'=>200, 'result' => $nothing]);
+        } 
     }
 }
