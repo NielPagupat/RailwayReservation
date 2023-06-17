@@ -8,6 +8,7 @@ import Box from '@mui/material/Box/Box';
 import Typography  from '@mui/material/Typography';
 import html2canvas from 'html2canvas';
 import downloadjs from 'downloadjs';
+import axios from 'axios';
 
 export default function BookTicketForm() {
   let Curdate = new Date().toJSON().slice(0, 10);
@@ -24,6 +25,7 @@ export default function BookTicketForm() {
   const [age, setAge] = useState();
   const [sex, setSex] = useState();
   const [address, setAddress] = useState();
+  const [status, setStatus] = useState();
   
   //Modal
   const [open, setOpen] = React.useState(false);
@@ -39,12 +41,33 @@ export default function BookTicketForm() {
     document.querySelector('#BookTicket').submit();
     console.log("hello");
   }
+
+  //checkStatus
+  const chkStatus = async () => {
+    const result = await axios.get('api/getTotalPassengersBooked',{
+      params: {
+        'TrainNumber' : train,
+        'date' : date,
+        'route': route,
+        'category': cat
+      }
+    });
+    if (result.data.count[0].result >= 10) {
+      setStatus('Pending');
+    } else {
+      setStatus('Confirmed');
+    }
+  }
+
+
+
   const chkDest = (ev) => {
     setDest(ev.target.value);
-  }
+    }
 
   const chkTrain = (ev) => {
     setTrain(ev.target.value);
+    
   }
   
   useEffect(()=>{
@@ -65,6 +88,27 @@ export default function BookTicketForm() {
     }
   }, train);
 
+  useEffect(()=>{
+    chkStatus();
+  }, train)
+
+  useEffect(()=>{
+    chkStatus();
+  }, train)
+
+  useEffect(()=>{
+    chkStatus();
+  }, date)
+
+  useEffect(()=>{
+    chkStatus();
+  }, route)
+
+  useEffect(()=>{
+    chkStatus();
+  }, cat)
+
+
  useEffect(()=>{
   if (cat == 1) {
     setFare('200')
@@ -72,6 +116,11 @@ export default function BookTicketForm() {
     setFare('150')
   }
  }, cat)
+
+ if (date!=undefined && route !=undefined && source != undefined && train != undefined && sched != undefined && destination != undefined && 
+    cat != undefined && fare != undefined && fname != undefined && age != undefined && address != undefined && sex != undefined) {
+  document.querySelector('#ConfirmButton').style.display = 'block'
+  }
 
   const chkFare = (ev) => {
     setTime(ev.target.value);
@@ -168,11 +217,6 @@ export default function BookTicketForm() {
       routeB.forEach(iterate2);
     }
 
-    if (date!=undefined && route !=undefined && source != undefined && train != undefined && sched != undefined && destination != undefined && 
-      cat != undefined && fare != undefined && fname != undefined && age != undefined && address != undefined && sex != undefined) {
-    document.querySelector('#ConfirmButton').style.display = 'block'
-    }
-
   }
   
   return ( 
@@ -181,20 +225,20 @@ export default function BookTicketForm() {
     <center>
     <h1 style={{
       fontFamily: 'Teko',
-      marginTop: '3vw'
+      marginBottom: 10
       }}>Book Ticket</h1>
-    <form style={{}} action='/bookTicket' method='Post' id='BookTicket'>
+    <form style={{}}action='/bookTicket' method='Post' id='BookTicket'>
       <input type="text" name='uid' value={uid} hidden onChange={chkUID}/>
-
-      <TextField sx={{marginBottom:1}} name='bookDt' type='date' size="small" value={date} onChange={chkDate}/>
+      <TextField sx={{width: {xs:'65vw', sm:333}, m:1}} inputProps={{readOnly:true}} value={status} /> <br/>
+      <TextField sx={{width:{xs:'30vw', sm:163}, marginBottom:1}} name='bookDt' id='bookDt' type='date' size="small" value={date} onChange={chkDate}/>
       
-      <select style={{padding: 10, marginLeft: 5, width:165}} name="route" id="rt" value={route} onChange={chkRoute}>
+      <select style={{width: {xs:'30vw', sm:163}, padding: 10, marginLeft: 5}} name="route" id="rt" value={route} onChange={chkRoute}>
         <option value="0" disabled selected>Route</option>
         <option value="1">CDO-Davao</option>
         <option value='2'>Davao-CDO</option>
       </select><br/>
       
-      <select style={{padding: 10, width:164, marginBottom:10}} name="source" id="source" value={source} onChange={chkSource}>
+      <select style={{width:{xs:'30vw', sm:163}, padding: 10, marginRight:5, marginBottom:10}} name="source" id="source" value={source} onChange={chkSource}>
         <option value="source" disabled selected>Source</option>
         <option value="CDO">CDO</option>
         <option value="Malaybalay">Malaybalay</option>
@@ -206,7 +250,7 @@ export default function BookTicketForm() {
         <option value="Davao">Davao</option>
       </select>
       
-      <select style={{padding: 10, width:164, marginLeft:5}} name="destination" id="destination" value={destination} onChange={chkDest}>
+      <select style={{width:{xs:'30vw', sm:163}, padding: 10}} name="destination" id="destination" value={destination} onChange={chkDest}>
         <option value="dest" disabled selected>Destination</option>
         <option value="CDO">CDO</option>
         <option value="Malaybalay">Malaybalay</option>
@@ -218,7 +262,7 @@ export default function BookTicketForm() {
         <option value="Davao">Davao</option>
       </select><br/>
 
-      <select style={{padding: 10, width:215, marginBottom:10}} name="tNo" id="trainName" value={train} onChange={chkTrain} >
+      <select style={{width:{sm:215}, padding: 10, marginRight: 10, marginBottom:10, marginLeft:10}} name="tNo" id="trainName" value={train} onChange={chkTrain} >
         <option selected disabled>Train</option>
         <option value="T01" class='routeA'>Orange</option>
         <option value="T02" class='routeA'>Blue</option>
@@ -231,8 +275,10 @@ export default function BookTicketForm() {
         <option value="T09" class='routeB'>Hyperion</option>
         <option value="T10" class='routeB'>Katipunan</option>
       </select>
-     
-      <select style={{padding: 10, marginLeft: 10, width:109}} name="sched" id="sched" value={sched} onChange={chkSched}>
+      
+      
+      
+      <select style={{width:{sm:110}, padding: 10, marginRight: 10}} name="sched" id="sched" value={sched} onChange={chkSched}>
         <option value="sched" disabled selected>Schedule</option>
         <option value="AM">AM</option>
         <option value="PM1">PM1</option>
@@ -241,20 +287,21 @@ export default function BookTicketForm() {
         <option value="EVE2">EVE2</option>
       </select>
     
+    
     <br/>
       
-      <select style={{padding: 10, marginBottom: 30, marginRight:10, width:215}} name="cat" id="cat" value={cat} onChange={chkCat}>
+      <select style={{width:{sm:215}, padding: 10, marginBottom: 30, marginRight:10}} name="cat" id="cat" value={cat} onChange={chkCat}>
         <option value="" disabled selected>Seat Category</option>
         <option value="1">AC seat</option>
         <option value="2">Gen seat</option>
       </select>
 
-      <TextField sx={{width:110}} name='fare' type="text" id="outlined-basic" placeholder='Fare' variant="outlined" size="small" value={fare} onChange={chkFare} inputProps={{readOnly:true}}/><br/>
-      <TextField sx={{marginBottom:1, width:275, marginRight: 1}} name='name' type="text" id="outlined-basic" label="Name" variant="outlined" size="small" value={fname} onChange={chkFname}/>
-      <TextField sx={{width:55, marginRight:.5, marginBottom:1}} name='age' type="text" id="outlined-basic" label="Age" variant="outlined" size="small" value={age} onChange={chkAge}/>
-      <TextField sx={{width:55}} name='sex' type="text" id="outlined-basic" label="Sex" variant="outlined" size="small" value={sex} onChange={chkSex}/><br/>
-      <TextField sx={{width:397.5, marginBottom:2}} name='address' type="text" id="outlined-basic" label="Address" variant="outlined" size="small" value={address} onChange={chkAddress}/><br/>
-      <Button onClick={handleOpen} id="ConfirmButton" variant="contained" sx={{display:'none'}}>Proceed to Confirmation</Button>
+      <TextField sx={{width:{sm:110}}} name='fare' type="text" id="outlined-basic" placeholder='Fare' variant="outlined" size="small" value={fare} onChange={chkFare} inputProps={{readOnly:true}}/><br/>
+      <TextField sx={{width:{sm:275}, marginBottom:1, marginRight: 1}} name='name' type="text" id="outlined-basic" label="Name" variant="outlined" size="small" value={fname} onChange={chkFname}/>
+      <TextField sx={{width:{sm:55}, marginRight:.5, marginBottom:1}} name='age' type="text" id="outlined-basic" label="Age" variant="outlined" size="small" value={age} onChange={chkAge}/>
+      <TextField sx={{width:{sm:55}}} name='sex' type="text" id="outlined-basic" label="Sex" variant="outlined" size="small" value={sex} onChange={chkSex}/><br/>
+      <TextField sx={{width:{xs:'23vw', sm:397}, marginBottom:2}} name='address' type="text" id="outlined-basic" label="Address" variant="outlined" size="small" value={address} onChange={chkAddress}/><br/>
+      <Button onClick={handleOpen} variant="contained" id='ConfirmButton' sx={{display:'none'}}>Proceed to Confirmation</Button>
       
       <Modal open={open} 
              onClose={handleClose}
@@ -282,6 +329,7 @@ export default function BookTicketForm() {
                     <Typography sx={{fontFamily:'Teko', fontSize:24, marginBottom:1, marginTop:1}}>Thank you for Riding with us!</Typography>
                     <Typography sx={{fontFamily:'Arial', fontSize:20, marginBottom:2}}>Your Train receipt:</Typography>
                     <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Ticket ID:</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Status:</Typography>
                     <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Date:</Typography>
                     <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Route:</Typography>
                     <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Source:</Typography>
@@ -297,6 +345,7 @@ export default function BookTicketForm() {
                     </Box>
                     <Box sx={{marginTop:12.3}}>
                     <Typography sx={{fontFamily:'Arial', fontSize:16}}>{uid}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{status}</Typography>
                     <Typography sx={{fontFamily:'Arial', fontSize:16}}>{date}</Typography>
                     <Typography sx={{fontFamily:'Arial', fontSize:16}}>{route}</Typography>
                     <Typography sx={{fontFamily:'Arial', fontSize:16}}>{source}</Typography>
@@ -311,10 +360,10 @@ export default function BookTicketForm() {
                     <Typography sx={{fontFamily:'Arial', fontSize:16}}>{address}</Typography>
                     </Box>
                     </Box>
-                    <Button sx={{marginTop:5}} onClick={SaveTicket} variant="contained">Book Ticket</Button>
+                    <Button sx={{marginTop:5}} onClick={SaveTicket} variant="contained" >Book Ticket</Button>
                   </Box>
-            </Box> 
-      </Modal>
+            </Box>     
+      </Modal> 
     </form>
     </center>
     </>

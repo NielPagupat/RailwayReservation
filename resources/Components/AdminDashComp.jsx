@@ -9,33 +9,31 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { mainListItems, secondaryListItems } from './listItems';
 import { Button } from '@mui/material';
-import GetData from '../Helpers/GetData';
 import axios from 'axios';
 import { useState } from 'react';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import {TextField} from '@mui/material';
+import AirlineSeatReclineExtraIcon from '@mui/icons-material/AirlineSeatReclineExtra';
 import { Train } from '@mui/icons-material';
+import RailwayAlertIcon from '@mui/icons-material/RailwayAlert';
+import SummarizeIcon from '@mui/icons-material/Summarize';
+import RssFeedIcon from '@mui/icons-material/RssFeed';
+import { useEffect } from 'react';
 
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+
+
 
 const drawerWidth = 240;
 
@@ -87,10 +85,23 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
-  const [open, setOpen] = React.useState(true);
+  const [pass , setPass] = useState();
+  const [open, setOpen] = useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
+    
   };
+
+  if (open) {
+
+    
+    console.log('opened')
+  } else {
+    
+    console.log('closed')
+  }
+
+
   
   const [trainNo, setTrainNo] = useState('T01');
   const [date, setDate] = useState('2023/06/03');
@@ -98,28 +109,70 @@ export default function Dashboard() {
   const [Passenger, SetPassenger] = useState([]);
   const [Trains, setTrains] = useState([]);
   const [TrainStat, setTrainStat] = useState([]);
-  const [GenReport, setGenReport] = useState();
-  const [ACReport, setACReport] = useState();
+  const [Report, setReport] = useState([]);
+  const [xml, setXML] = useState([]);
   
-  const getData = () => {
+ 
+
+  const showRepPage = () => {
+    document.querySelector('#xmlTableRecord').style.display = 'none'
+      document.querySelector('#passengerTable').style.display = 'none'
+      document.querySelector('#TrainListTable').style.display = 'none'
+      document.querySelector('#trainStatusTable').style.display = 'none'
+      document.querySelector('#GenSeatReport').style.display = 'block'
+  
+      
+  }
+
+  const getData = async () => {
+    console.log(open);
   }
 
     const getPassenger = async () => {
       const result = await axios.get('/api/allPassenger');
       SetPassenger(result.data.allPass);
-      console.log(result.data.allPass)
+      console.log(result.data.allPass);
+
+      document.querySelector('#passengerTable').style.display = 'block'
+      document.querySelector('#TrainListTable').style.display = 'none'
+      document.querySelector('#trainStatusTable').style.display = 'none'
+      document.querySelector('#GenSeatReport').style.display = 'none'
+      document.querySelector('#xmlTableRecord').style.display = 'none'
     }
     const getTrain = async () => {
-      const result = await axios.get('/api/allTrain');
-      setTrains(result.data.allTrains);
-      console.log(result)
-
+      const alltrain = await axios.get('/api/allTrain');
+      console.log(alltrain);
+      setTrains(alltrain.data.allTrain);
+      document.querySelector('#TrainListTable').style.display = 'block';
+      document.querySelector('#passengerTable').style.display = 'none';
+      document.querySelector('#trainStatusTable').style.display = 'none';
+      document.querySelector('#GenSeatReport').style.display = 'none';
+      document.querySelector('#xmlTableRecord').style.display = 'none'
+      
     }
     const getTrainStatus = async () => {
       const result = await axios.get('/api/allTrainStat');
-      setTrainStat(result.data.allTrainStat)
+      setTrainStat(result.data.allTrainStat);
+
+      document.querySelector('#TrainListTable').style.display = 'none';
+      document.querySelector('#passengerTable').style.display = 'none';
+      document.querySelector('#trainStatusTable').style.display = 'block'
+      document.querySelector('#GenSeatReport').style.display = 'none'
+      document.querySelector('.xmlTable').style.display = 'none'
       console.log(result)
 
+    }
+
+    const getXML = async () => {
+      const result = await axios.get('/api/xmlLoad');
+      setXML(result.data.xmlOutput.report);
+  
+      document.querySelector('#xmlTableRecord').style.display = 'block'
+      document.querySelector('#passengerTable').style.display = 'none'
+      document.querySelector('#TrainListTable').style.display = 'none'
+      document.querySelector('#trainStatusTable').style.display = 'none'
+      document.querySelector('#GenSeatReport').style.display = 'none'
+      
     }
     const getGenSeatReport = async () => {
       const result = await axios.get('/api/getGenSeatReport',{
@@ -128,6 +181,7 @@ export default function Dashboard() {
           'date' : document.querySelector('#trainDate').value
         }
       });
+      setReport(result.data.reportRes[0])
       console.log(result)
       
 
@@ -139,6 +193,7 @@ export default function Dashboard() {
           'date' : document.querySelector('#trainDate').value
         }
       });
+      setReport(result.data.reportRes[0])
       console.log(result)
 
     }
@@ -195,15 +250,30 @@ export default function Dashboard() {
             </IconButton>
           </Toolbar>
           <Divider />
-          <List component="nav" sx={{display:'flex', flexDirection:'column'}}>
-            <Button onClick={getData}>Click Me</Button>
+          <List component="nav" sx={{flexDirection:'column'}}>
+
             <Divider sx={{ my: 1 }} />
-            <Button onClick={getPassenger}>Passengers</Button>
-            <Button onClick={getTrain}>Train List</Button>
-            <Button onClick={getTrainStatus}>Train Status</Button>
-            <Button onClick={getGenSeatReport}>Gen Seat Report</Button>
-            <Button onClick={getACSeatReport}>AC Seat Report</Button>
-            <Button></Button>
+            <Button onClick={getPassenger} id='passBtn'>
+              <AirlineSeatReclineExtraIcon sx={{ fontSize: 30, mx:2}}/>
+              <Typography>Passenger</Typography>
+            </Button> <br/>
+            <Button onClick={getTrain} id='trainLbtn'>
+              <Train sx={{ fontSize: 30, mx:2}}/>
+              <Typography>Train List</Typography>
+            </Button> <br/>
+            <Button onClick={getTrainStatus} id='TSbtn'>
+              <RailwayAlertIcon sx={{ fontSize: 30, mx:2}}/>
+              <Typography>Train Status</Typography>
+            </Button> <br/>
+            <Button onClick={showRepPage} id='genRepBtn'>
+              <SummarizeIcon sx={{ fontSize: 30, mx:2}}/>
+              <Typography>Generate Report</Typography>
+            </Button> <br/>
+            <Button onClick={getXML} id='xmlBtn'>
+              <RssFeedIcon sx={{ fontSize: 30, mx:2}}/>
+              <Typography>XML LoadFile</Typography>
+            </Button>
+            
           </List>
         </Drawer>
         <Box
@@ -219,17 +289,149 @@ export default function Dashboard() {
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 , display:'flex'}}>
-            <Box sx={{flexGrow:1}}>
-              <Paper sx={{flexGrow:1}} >
-                <input type="text" id='trainNo' />
-                <input type="date" id='trainDate' />
-                <Paper>
-                  
-                  
+          <Container maxWidth="xl" sx={{ mt: 4, mb: 4}}>
+            <Box sx={{display:'flex', width:500}}>
+              <Box sx={{flexGrow:1}} >
+                <Paper id="passengerTable" style={{display: 'none' }}>
+                  <Table aria-label='simple table'>
+                    <TableHead>
+                      <TableCell>ticketID</TableCell>
+                      <TableCell>trainNumber</TableCell>
+                      <TableCell>dateBooked</TableCell>
+                      <TableCell>status</TableCell>
+                      <TableCell>category</TableCell>
+                      <TableCell>source</TableCell>
+                      <TableCell>destination</TableCell>
+                      <TableCell>schedule</TableCell>
+                      <TableCell>route</TableCell>
+                      <TableCell>timestamp</TableCell>
+                      <TableCell>name</TableCell>
+                      <TableCell>age</TableCell>
+                      <TableCell>sex</TableCell>
+                      <TableCell>address</TableCell>
+                    </TableHead>
+                    <TableBody>
+                      {Passenger.map((pass)=> (
+                        <TableRow key={pass.ticketID}>
+                          <TableCell>{pass.ticketID}</TableCell>
+                          <TableCell>{pass.trainNumber}</TableCell>
+                          <TableCell>{pass.dateBooked}</TableCell>
+                          <TableCell>{pass.status}</TableCell>
+                          <TableCell>{pass.category}</TableCell>
+                          <TableCell>{pass.source}</TableCell>
+                          <TableCell>{pass.destination}</TableCell>
+                          <TableCell>{pass.schedule}</TableCell>
+                          <TableCell>{pass.route}</TableCell>
+                          <TableCell>{pass.tmStamp}</TableCell>
+                          <TableCell>{pass.name}</TableCell>
+                          <TableCell>{pass.age}</TableCell>
+                          <TableCell>{pass.sex}</TableCell>
+                          <TableCell>{pass.address}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
                 </Paper>
-              </Paper>
+                <Paper id='TrainListTable' style={{display: 'none'}}>
+                  <Table aria-label='simple table'>
+                    <TableHead>
+                        <TableCell>trainNumber</TableCell>
+                        <TableCell>trainName</TableCell>
+                        <TableCell>source</TableCell>
+                        <TableCell>destination</TableCell>
+                        <TableCell>AC_Fare</TableCell>
+                        <TableCell>Gen_Fare</TableCell>
+                        <TableCell>Schedule</TableCell>
+                        <TableCell>totalACSeats</TableCell>
+                        <TableCell>totalGenSeats</TableCell>
+                    </TableHead>
+                    <TableBody>
+                      {Trains.map((train)=>(
+                        <TableRow key={train.trainNumber}>
+                          <TableCell>{train.trainNumber}</TableCell>
+                          <TableCell>{train.trainName}</TableCell>
+                          <TableCell>{train.source}</TableCell>
+                          <TableCell>{train.destination}</TableCell>
+                          <TableCell>{train.AC_fare}</TableCell>
+                          <TableCell>{train.GEN_fare}</TableCell>
+                          <TableCell>{train.schedule}</TableCell>
+                          <TableCell>{train.totalACSeats}</TableCell>
+                          <TableCell>{train.totalGenSeats}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </Paper>
+                <Paper id='trainStatusTable' style={{display: 'none'}}>
+                  <Table aria-label='simple table'>
+                      <TableHead>
+                          <TableCell>TrainNumber</TableCell>
+                          <TableCell>trainDate</TableCell>
+                          <TableCell>totalACSeats</TableCell>
+                          <TableCell>totalGenSeats</TableCell>
+                          <TableCell>ACSeatsBooked</TableCell>
+                          <TableCell>GenSeatsBooked</TableCell>
+                          <TableCell>route</TableCell>
+                      </TableHead>
+                      {TrainStat.map((trainst) => (
+                        <TableRow key={trainst.trainNumber}>
+                          <TableCell>{trainst.trainNumber}</TableCell>
+                          <TableCell>{trainst.trainDate}</TableCell>
+                          <TableCell>{trainst.totalACSeats}</TableCell>
+                          <TableCell>{trainst.totalGenSeats}</TableCell>
+                          <TableCell>{trainst.ACSeatsBooked}</TableCell>
+                          <TableCell>{trainst.GenSeatsBooked}</TableCell>
+                          <TableCell>{trainst.route}</TableCell>
+                        </TableRow>
+                      ))}
+                  </Table>
+                </Paper>
+                <Box id='GenSeatReport' style={{display:'none'}}>
+                  <Box sx={{display:'flex' }} >
+                        <Paper sx={{display:'flex',flexGrow:1, m:1, p:1, flexDirection:'column'}} variant='outlined' elevation={3}>
+                            <Typography>Generate Gen Seat Report Or AC seat report</Typography>
+                            <TextField label='Train Number' sx={{m:1, flexGrow:1}} id='trainNo'/>
+                            <TextField type='date' sx={{m:1, flexGrow:1}} id='trainDate'/> 
+                            <Box sx={{display:'flex'}}>
+                              <Button variant='contained' sx={{m:1, flexGrow:1}} onClick={getGenSeatReport}>General Seats Report</Button>
+                              <Button variant='contained' sx={{m:1, flexGrow:1}} onClick={getACSeatReport}>AC Seats Report</Button>
+                            </Box>
+                        </Paper>
+                        <Paper sx={{width:500, m:1, p:1}} variant='outlined'elevation={3}>
+                          <Typography>Result</Typography>
+                          <br/>
+                          <Typography sx={{m:1}}>Train Number: {Report.trainNo}</Typography>
+                          <Typography sx={{m:1}}>Train Date: {Report.date}</Typography>
+                          <Typography sx={{m:1}}>Confirmed: {Report.Confirmed}</Typography>
+                          <Typography sx={{m:1}}>Waiting: {Report.Waiting}</Typography>
+                        </Paper>
+                  </Box>
+                </Box>
+              </Box>
+              <Box id='xmlTableRecord' class='xmlTable' style={{display: 'none'}}>
+                <Paper>
+                    <Table aria-label='simple table'>
+                        <TableHead>
+                          <TableCell>trainNumber</TableCell>
+                          <TableCell>trainDate</TableCell>
+                          <TableCell>route</TableCell>
+                          <TableCell>ACSeatsBooked</TableCell>
+                          <TableCell>GenSeatsBooked</TableCell>
+                        </TableHead>  
+                      {xml.map((data) => (
+                        <TableRow key={data.trainNumber}>
+                          <TableCell>{data.trainNumber}</TableCell>
+                          <TableCell>{data.trainDate}</TableCell>
+                          <TableCell>{data.route}</TableCell>
+                          <TableCell>{data.ACSeatsBooked}</TableCell>
+                          <TableCell>{data.GenSeatsBooked}</TableCell>
+                        </TableRow>
+                      ))}
+                    </Table>
+                  </Paper>
+              </Box>
             </Box>
+            
           </Container>
         </Box>
       </Box>

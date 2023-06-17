@@ -2,13 +2,13 @@ import React from 'react'
 import BookTicket from '../Components/BookTicket'
 import ResponsiveAppBar from '../Components/NavBar'
 import Box from '@mui/material/Box'
-import TEST from '../Components/TEST'
+
 
 export default function Home() {
   return (
     <>
       <Box sx={{
-        height: {sm:'120vh', md:'120vh', lg:'140vh', xl:'100vh'},
+        height: {xs:'150vh', sm:'175vh', lg:1700, xl:'100vh'},
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
