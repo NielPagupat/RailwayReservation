@@ -48,7 +48,7 @@ export default function SignIn() {
         <Box
           sx={{
             padding: 3,
-            marginTop: 8,
+            marginTop: 3,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -108,7 +108,7 @@ export default function SignIn() {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 5, color: 'gray'}}/>
+        <Copyright sx={{ mt: 3, mb: 5, color: 'gray'}}/>
       </Container>
     </ThemeProvider>
   );
