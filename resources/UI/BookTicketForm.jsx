@@ -26,7 +26,7 @@ export default function BookTicketForm() {
   const [sex, setSex] = useState();
   const [address, setAddress] = useState();
   const [status, setStatus] = useState();
-  
+  const [allowBook, setAllowBook] = useState(false);
   //Modal
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -52,14 +52,22 @@ export default function BookTicketForm() {
         'category': cat
       }
     });
-    if (result.data.count[0].result >= 10) {
+    if (result.data.count[0].result >= 10 && result.data.count[0].result < 12) {
       setStatus('Pending');
+      setAllowBook(false)
+      console.log(result.data.count[0].result)
+    } else if(result.data.count[0].result == 12){
+      setStatus('Full')
+      setAllowBook(true)
+      console.log(result.data.count[0].result)
     } else {
       setStatus('Confirmed');
+      setAllowBook(false)
+      console.log(result.data.count[0].result)
     }
   }
 
-
+  
 
   const chkDest = (ev) => {
     setDest(ev.target.value);
@@ -168,7 +176,7 @@ export default function BookTicketForm() {
 
   let d = new Date(date);
   let day = d.getDate();
-
+  
 
   if (route != undefined && date != undefined) {
     if (route == 1 && day%2 == 0) {
@@ -231,7 +239,7 @@ export default function BookTicketForm() {
     <form style={{}}action='/bookTicket' method='Post' id='BookTicket'>
       <input type="text" name='uid' value={uid} hidden onChange={chkUID}/>
       <TextField sx={{width:350, m:1}} inputProps={{readOnly:true}} value={status} /> <br/>
-      <TextField sx={{marginBottom:1}} name='bookDt' id='bookDt' type='date' size="small" value={date} onChange={chkDate}/>
+      <TextField sx={{marginBottom:1}} name='bookDt' id='bookDt' type='date' size="small" value={date} onChange={chkDate} />
       
       <select style={{padding: 10, marginLeft: 5, width:165}} name="route" id="rt" value={route} onChange={chkRoute}>
         <option value="0" disabled selected>Route</option>
@@ -302,7 +310,7 @@ export default function BookTicketForm() {
       <TextField sx={{width:55, marginRight:.5, marginBottom:1}} name='age' type="text" id="outlined-basic" label="Age" variant="outlined" size="small" value={age} onChange={chkAge}/>
       <TextField sx={{width:55}} name='sex' type="text" id="outlined-basic" label="Sex" variant="outlined" size="small" value={sex} onChange={chkSex}/><br/>
       <TextField sx={{width:396, marginBottom:2}} name='address' type="text" id="outlined-basic" label="Address" variant="outlined" size="small" value={address} onChange={chkAddress}/><br/>
-      <Button onClick={handleOpen} variant="contained" id='ConfirmButton' sx={{display:'none'}}>Proceed to Confirmation</Button>
+      <Button onClick={handleOpen} variant="contained" id='ConfirmButton' sx={{display:'none'}} disabled={allowBook}>Proceed to Confirmation</Button>
       
       <Modal open={open} 
              onClose={handleClose}
