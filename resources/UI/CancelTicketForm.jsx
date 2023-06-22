@@ -33,14 +33,14 @@ export default function CancelTicket() {
   
   return (
     <>
-    <Box sx={{display:'flex', justifyContent:'space-around'}}>
-      <Box>
+    <Box sx={{display:'flex', flexDirection: {sm:'row', md:'column', xl:'row'}, marginTop:{xl:'-2vw'}, justifyContent:'center'}}>
+      <Box sx={{marginRight:'3vw'}}>
           <h1 style={{
           fontFamily: 'Teko',
           marginTop:50
           }}>Cancel Ticket</h1>
             <form style={{marginTop:-15}} action="/cancelTicket" method='Post'>
-            <TextField sx={{marginBottom:2}}name='cancelT' id="outlined-basic" label="Insert Ticket ID" variant="outlined" size="small"/><br/>
+            <TextField sx={{marginBottom:2, width:150}}name='cancelT' id="outlined-basic" label="Insert Ticket ID" variant="outlined" size="small"/><br/>
             <Button sx={{backgroundColor: 'red'}} type="submit" variant="contained">Cancel Ticket</Button>
           </form>
       </Box>
@@ -49,7 +49,7 @@ export default function CancelTicket() {
           fontFamily: 'Teko',
           marginTop:50
           }}>Check Status</h1>
-            <TextField sx={{marginBottom:2}}name='cancelT' id="TicketID" label="Insert Ticket ID" variant="outlined" size="small" value={ticketId} onChange={setTicket}/><br/>
+            <TextField sx={{marginTop:-1.8, marginBottom:2, width:150}} name='cancelT' id="TicketID" label="Insert Ticket ID" variant="outlined" size="small" value={ticketId} onChange={setTicket}/><br/>
             <Button sx={{backgroundColor: 'green'}} variant="contained" onClick={getTicket}>Check Ticket Status</Button>
       </Box>
     </Box>
@@ -72,8 +72,7 @@ export default function CancelTicket() {
                   <Typography>{passenger.name}</Typography>
                   <Typography>{passenger.age}</Typography>
                   <Typography>{passenger.sex}</Typography>
-            <Typography>{passenger.address}</Typography>
-            
+                  <Typography>{passenger.address}</Typography>
             </Box>
     </Modal>
     </>

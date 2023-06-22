@@ -1,67 +1,65 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import Link from '@mui/material/Link';
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';66
-import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BookTicketForm from '../UI/BookTicketForm';
 import CancelTicket from '../UI/CancelTicketForm';
+import { styled } from '@mui/material/styles';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
+const Responsive = styled('div')(({ theme }) => ({
+  [theme.breakpoints.down('xl')]: {
+    display:'flex',
+    flexDirection:'column',
+    alignItems:'center'
+  }
+}));
+
 export default function SignInSide({}) {
-  
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: '45vw'}}>
+      <Responsive sx={{display: 'flex', justifyContent:'center', mt:'3vw'}}>
         <CssBaseline />
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
+        <Box
           sx={{
-            marginLeft:7.5,
+            height:{sm: '70vw', md:700, lg:920, xl:835},
+            width:{sm: '90vw', md:900, lg:1200, xl: 1085},
             backgroundImage: 'url(https://cdn.discordapp.com/attachments/1072506851662499891/1118127775774150656/RailwayLOLZ.png)',
             backgroundRepeat: 'no-repeat',
-            backgroundColor: (t) =>
-              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-          }}
-        />
-        <Grid sx={{width:300, 
-                  height:'45vw', 
-                  backgroundImage: 'url(https://cdn.discordapp.com/attachments/1072506851662499891/1118826654362509354/transparentBox.png)',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center'}} item xs={12} sm={8} md={3.5} elevation={6} square>
-          <center>
-          <Box component={Paper} sx={{marginX:3, height:'38vw', borderRadius:5}}>
+          }}/>
+        <Box sx={{ 
+          height:{xs:'0vw', xl:835.7},
+          width: {lg:'58.5vw', xl:558}, 
+          backgroundImage: 'url(https://cdn.discordapp.com/attachments/1072506851662499891/1118826654362509354/transparentBox.png)',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          display:'flex',
+          justifyContent:'center'
+          }}>
+          <Box sx={{
+            height: {xs:500, sm:800, md:550, xl:762}, 
+            width: {xs:'80vw', sm:500, md:800, lg:900, xl:502},
+            borderRadius:5, 
+            marginTop:'2vw', 
+            paddingBottom:'5vw', 
+            backgroundColor:'white', 
+            display:'flex', 
+            flexDirection: {xs:'column', md:'row', xl:'column'}, 
+            alignItems: {xl:'center'}, 
+            justifyContent: {sm:'space-around'}}}>
             <BookTicketForm />
             <CancelTicket />
           </Box>
-          </center>
-        </Grid>
-      </Grid>
+        </Box> 
+        </Responsive>
     </ThemeProvider>
   );
 }

@@ -8,14 +8,14 @@ export default function Home() {
   return (
     <>
       <Box sx={{
-        height: '100vh',
+        height: {xs:'150vh', sm:'175vh', lg:1700, xl:'100vh'},
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundImage: 'url(https://cdn.discordapp.com/attachments/1072506851662499891/1118447820337336431/cosmetic-background-for-product-branding-and-packaging-presentation-geometry-form-circle-molding-on-podium-stage-with-shadow-of-leaf-background-design-eps10-vector.png)'
       }}>
-        <ResponsiveAppBar/>,
-        <BookTicket />
+        <ResponsiveAppBar/>
+        <BookTicket/>
       </Box>
     </>
   )
