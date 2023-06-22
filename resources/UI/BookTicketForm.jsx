@@ -237,16 +237,20 @@ export default function BookTicketForm() {
       }}>Book Ticket</h1>
     <form style={{}}action='/bookTicket' method='Post' id='BookTicket'>
       <input type="text" name='uid' value={uid} hidden onChange={chkUID}/>
-      <TextField sx={{width: {xs:'65vw', sm:333}, m:1}} inputProps={{readOnly:true}} value={status} /> <br/>
-      <TextField sx={{width:{xs:'30vw', sm:163}, marginBottom:1}} name='bookDt' id='bookDt' type='date' size="small" value={date} onChange={chkDate}/>
+      <TextField sx={{width: {xs:'65vw', sm:333}, m:1}} inputProps={{readOnly:true}} value={status} />
+
+      <Box sx={{display:'flex', flexDirection: 'row', alignItems:{sm:'normal', xl:'center'}, justifyContent:'space-between', marginX:{xs:1, sm:10.5}, marginBottom: 1}}>
+      <TextField sx={{width: 165}} name='bookDt' id='bookDt' type='date' size="small" value={date} onChange={chkDate}/>
       
-      <select style={{width: {xs:'30vw', sm:163}, padding: 10, marginLeft: 5}} name="route" id="rt" value={route} onChange={chkRoute}>
+      <select style={{width: 165, padding: 10}} name="route" id="rt" value={route} onChange={chkRoute}>
         <option value="0" disabled selected>Route</option>
         <option value="1">CDO-Davao</option>
         <option value='2'>Davao-CDO</option>
-      </select><br/>
-      
-      <select style={{width:{xs:'30vw', sm:163}, padding: 10, marginRight:5, marginBottom:10}} name="source" id="source" value={source} onChange={chkSource}>
+      </select>
+      </Box>
+
+      <Box sx={{display:'flex', flexDirection: 'row', alignItems:{sm:'normal', xl:'center'}, justifyContent:'space-between', marginX:{xs:1, sm:10.5}, marginBottom: 1}}>
+      <select style={{width: 165, padding: 10}} name="source" id="source" value={source} onChange={chkSource}>
         <option value="source" disabled selected>Source</option>
         <option value="CDO">CDO</option>
         <option value="Malaybalay">Malaybalay</option>
@@ -258,7 +262,7 @@ export default function BookTicketForm() {
         <option value="Davao">Davao</option>
       </select>
       
-      <select style={{width:{xs:'30vw', sm:163}, padding: 10}} name="destination" id="destination" value={destination} onChange={chkDest}>
+      <select style={{width: 165, padding: 10}} name="destination" id="destination" value={destination} onChange={chkDest}>
         <option value="dest" disabled selected>Destination</option>
         <option value="CDO">CDO</option>
         <option value="Malaybalay">Malaybalay</option>
@@ -268,9 +272,11 @@ export default function BookTicketForm() {
         <option value="Buda">Buda</option>
         <option value="Mintal">Mintal</option>
         <option value="Davao">Davao</option>
-      </select><br/>
+      </select>
+      </Box>
 
-      <select style={{width:{sm:215}, padding: 10, marginRight: 10, marginBottom:10, marginLeft:10}} name="tNo" id="trainName" value={train} onChange={chkTrain} >
+      <Box sx={{display:'flex', flexDirection: 'row', alignItems:{sm:'normal', xl:'center'}, justifyContent:'space-between', marginX:{xs:1, sm:10.5}, marginBottom: 1}}>
+      <select style={{width: 215, padding: 10}} name="tNo" id="trainName" value={train} onChange={chkTrain} >
         <option selected disabled>Train</option>
         <option value="T01" class='routeA'>Orange</option>
         <option value="T02" class='routeA'>Blue</option>
@@ -286,7 +292,7 @@ export default function BookTicketForm() {
       
       
       
-      <select style={{width:{sm:110}, padding: 10, marginRight: 10}} name="sched" id="sched" value={sched} onChange={chkSched}>
+      <select style={{width: 110, padding: 10}} name="sched" id="sched" value={sched} onChange={chkSched}>
         <option value="sched" disabled selected>Schedule</option>
         <option value="AM">AM</option>
         <option value="PM1">PM1</option>
@@ -294,23 +300,28 @@ export default function BookTicketForm() {
         <option value="EVE1">EVE1</option>
         <option value="EVE2">EVE2</option>
       </select>
-    
-    
-    <br/>
-      
-      <select style={{width:{sm:215}, padding: 10, marginBottom: 30, marginRight:10}} name="cat" id="cat" value={cat} onChange={chkCat}>
+      </Box>
+
+      <Box sx={{display:'flex', flexDirection: 'row', alignItems:{sm:'normal', xl:'center'}, justifyContent:'space-between', marginX:{xs:1, sm:10.5}, marginBottom: 3}}>
+      <select style={{width: 215, padding: 10}} name="cat" id="cat" value={cat} onChange={chkCat}>
         <option value="" disabled selected>Seat Category</option>
         <option value="1">AC seat</option>
         <option value="2">Gen seat</option>
       </select>
 
-      <TextField sx={{width:{sm:110}}} name='fare' type="text" id="outlined-basic" placeholder='Fare' variant="outlined" size="small" value={fare} onChange={chkFare} inputProps={{readOnly:true}}/><br/>
-      <TextField sx={{width:{sm:275}, marginBottom:1, marginRight: 1}} name='name' type="text" id="outlined-basic" label="Name" variant="outlined" size="small" value={fname} onChange={chkFname}/>
-      <TextField sx={{width:{sm:55}, marginRight:.5, marginBottom:1}} name='age' type="text" id="outlined-basic" label="Age" variant="outlined" size="small" value={age} onChange={chkAge}/>
-      <TextField sx={{width:{sm:55}}} name='sex' type="text" id="outlined-basic" label="Sex" variant="outlined" size="small" value={sex} onChange={chkSex}/><br/>
-      <TextField sx={{width:{xs:'23vw', sm:397}, marginBottom:2}} name='address' type="text" id="outlined-basic" label="Address" variant="outlined" size="small" value={address} onChange={chkAddress}/><br/>
+      <TextField sx={{width:110}} name='fare' type="text" id="outlined-basic" placeholder='Fare' variant="outlined" size="small" value={fare} onChange={chkFare} inputProps={{readOnly:true}}/>
+      </Box>
+
+      <Box sx={{display:'flex', flexDirection: 'row', alignItems:{sm:'normal', xl:'center'}, justifyContent:'space-between', marginX:{xs:1, sm:7}, marginBottom: 1}}>
+      <TextField sx={{width:{xs:200, sm:275}}} name='name' type="text" id="outlined-basic" label="Name" variant="outlined" size="small" value={fname} onChange={chkFname}/>
+      <TextField sx={{width:55}} name='age' type="text" id="outlined-basic" label="Age" variant="outlined" size="small" value={age} onChange={chkAge}/>
+      <TextField sx={{width:55}} name='sex' type="text" id="outlined-basic" label="Sex" variant="outlined" size="small" value={sex} onChange={chkSex}/>
+      </Box>
+
+      <TextField sx={{width:{xs:330, sm:400}, marginBottom:2}} name='address' type="text" id="outlined-basic" label="Address" variant="outlined" size="small" value={address} onChange={chkAddress}/>
       <Button onClick={handleOpen} variant="contained" id='ConfirmButton' sx={{display:'none'}} disabled={allowBook}>Proceed to Confirmation</Button>
       
+
       <Modal open={open} 
              onClose={handleClose}
              sx={{display:'flex', justifyContent:'center', alignItems:'center'}} id='saveTicket'>
@@ -319,14 +330,14 @@ export default function BookTicketForm() {
               display: 'flex'}}>
                 
                 <Box sx={{
-                  width:300, 
+                  width:{xs:0, sm:300}, 
                   height:550, 
                   backgroundImage: 'url(https://source.unsplash.com/random/?train,railways)',
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center'}}></Box>
                 <Box sx={{
-                  width:450, 
+                  width:{xs:400, sm:450}, 
                   height:550,
                   backgroundColor:'white',
                   paddingLeft:5,
@@ -368,7 +379,7 @@ export default function BookTicketForm() {
                     <Typography sx={{fontFamily:'Arial', fontSize:16}}>{address}</Typography>
                     </Box>
                     </Box>
-                    <Button sx={{marginTop:5}} onClick={SaveTicket} variant="contained" >Book Ticket</Button>
+                    <Button sx={{marginTop:3}} onClick={SaveTicket} variant="contained" >Book Ticket</Button>
                   </Box>
             </Box>     
       </Modal> 

@@ -8,7 +8,8 @@ export default function Home() {
   return (
     <>
       <Box sx={{
-        height: {xs:'150vh', sm:'175vh', lg:1700, xl:'100vh'},
+        height: {xs:'180vh', sm:'230vh', lg:1700, xl:'100vh'},
+        width:'100%',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',

@@ -36,7 +36,7 @@ export default function SignInSide({}) {
           }}/>
         <Box sx={{ 
           height:{xs:'0vw', xl:835.7},
-          width: {lg:'58.5vw', xl:558}, 
+          width: {xs:0, xl:558}, 
           backgroundImage: 'url(https://cdn.discordapp.com/attachments/1072506851662499891/1118826654362509354/transparentBox.png)',
           backgroundRepeat: 'no-repeat',
           backgroundSize: 'cover',
@@ -45,16 +45,15 @@ export default function SignInSide({}) {
           justifyContent:'center'
           }}>
           <Box sx={{
-            height: {xs:500, sm:800, md:550, xl:762}, 
-            width: {xs:'80vw', sm:500, md:800, lg:900, xl:502},
+            height: {xs:1100, sm:800, md:530, xl:762}, 
+            width: {xs:400, sm:500, md:800, lg:900, xl:502},
             borderRadius:5, 
             marginTop:'2vw', 
             paddingBottom:'5vw', 
             backgroundColor:'white', 
             display:'flex', 
             flexDirection: {xs:'column', md:'row', xl:'column'}, 
-            alignItems: {xl:'center'}, 
-            justifyContent: {sm:'space-around'}}}>
+            alignItems: {xs:'center', sm:'normal', xl:'center'}}}>
             <BookTicketForm />
             <CancelTicket />
           </Box>

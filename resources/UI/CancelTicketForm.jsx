@@ -33,8 +33,8 @@ export default function CancelTicket() {
   
   return (
     <>
-    <Box sx={{display:'flex', flexDirection: {sm:'row', md:'column', xl:'row'}, marginTop:{xl:'-2vw'}, justifyContent:'center'}}>
-      <Box sx={{marginRight:'3vw'}}>
+    <Box sx={{display:'flex', flexDirection: {xs:'column', sm:'row', md:'column', xl:'row'}, marginTop:{sm:0, xl:'-2vw'}, marginRight:{md:10, xl:0}, justifyContent:'center'}}>
+      <Box sx={{marginRight:5}}>
           <h1 style={{
           fontFamily: 'Teko',
           marginTop:50
