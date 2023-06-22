@@ -166,9 +166,16 @@ export default function BookTicketForm() {
     setSource(ev.target.value);
   }
   const chkDate = (ev) => {
+  let d = new Date(ev.target.value).getDate();
+  let cd = new Date(Curdate).getDate()+7;
+  if (d <= cd) {
     setDate(ev.target.value);
-    console.log(route);
-    console.log(train);
+  } else {
+    setDate(Curdate);
+    alert("booking only available for the next 7 days");
+  }
+  
+
   }
   const chkRoute = (ev) => {
     setRoute(ev.target.value);
