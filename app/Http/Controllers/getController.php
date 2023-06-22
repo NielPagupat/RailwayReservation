@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class getController extends Controller
 {
     public function getPassengers() {
-        $allPassengers = Passenger::all();
+        $allPassengers = Passenger::orderByDesc('tmStamp') -> get();
         return response() -> json(['status'=> 200, 'allPass' => $allPassengers]);
     }
     public function getTrain () {
@@ -49,8 +49,9 @@ class getController extends Controller
         $value = [$trainNo, $date, $route, $cat];
 
         $count = DB::select("call countTicket(?,?,?,?)", array($trainNo, $date, $route, $cat));
+        $limit = DB::table('trainlist')->where('trainNumber', $trainNo)->first();
 
-        return response() -> json(['status'=>200, 'count' => $count]);
+        return response() -> json(['status'=>200, 'count' => $count, $limit]);
     }
 
     public function getPassengerInfo(Request $request){

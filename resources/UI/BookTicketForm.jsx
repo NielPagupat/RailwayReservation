@@ -27,6 +27,7 @@ export default function BookTicketForm() {
   const [address, setAddress] = useState();
   const [status, setStatus] = useState();
   const [allowBook, setAllowBook] = useState(false);
+  
   //Modal
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -42,6 +43,8 @@ export default function BookTicketForm() {
     console.log("hello");
   }
 
+  const [limit, setLimit] = useState('0');
+  
   //checkStatus
   const chkStatus = async () => {
     const result = await axios.get('api/getTotalPassengersBooked',{
@@ -52,11 +55,18 @@ export default function BookTicketForm() {
         'category': cat
       }
     });
-    if (result.data.count[0].result >= 10 && result.data.count[0].result < 12) {
+    console.log(result.data[0].totalACSeats);
+    
+    if (cat == 1) {
+      setLimit(result.data[0].totalACSeats);
+    } else {
+      setLimit(result.data[0].totalGenSeats);
+    }
+    if (result.data.count[0].result>= limit && result.data.count[0].result < 12) {
       setStatus('Pending');
       setAllowBook(false)
       console.log(result.data.count[0].result)
-    } else if(result.data.count[0].result == 12){
+    } else if(result.data.count[0].result == limit+2){
       setStatus('Full')
       setAllowBook(true)
       console.log(result.data.count[0].result)
@@ -78,6 +88,7 @@ export default function BookTicketForm() {
     
   }
   
+  //auto set Train sched based on train Number
   useEffect(()=>{
     if (train == 'T01' || train == 'T06') {
       setSched('AM')
@@ -96,10 +107,7 @@ export default function BookTicketForm() {
     }
   }, train);
 
-  useEffect(()=>{
-    chkStatus();
-  }, train)
-
+  // Chk Train Status with each change in the following
   useEffect(()=>{
     chkStatus();
   }, train)
@@ -125,6 +133,7 @@ export default function BookTicketForm() {
   }
  }, cat)
 
+ //Show Submit
  if (date!=undefined && route !=undefined && source != undefined && train != undefined && sched != undefined && destination != undefined && 
     cat != undefined && fare != undefined && fname != undefined && age != undefined && address != undefined && sex != undefined) {
   document.querySelector('#ConfirmButton').style.display = 'block'
@@ -165,15 +174,23 @@ export default function BookTicketForm() {
   const chkSource = (ev) => {
     setSource(ev.target.value);
   }
+
   const chkDate = (ev) => {
+  let d = new Date(ev.target.value).getDate();
+  let cd = new Date(Curdate).getDate()+7;
+  if (d <= cd) {
     setDate(ev.target.value);
-    console.log(route);
-    console.log(train);
+  } else {
+    setDate(Curdate);
+    alert("booking only available for the next 7 days");
+  }
+  
   }
   const chkRoute = (ev) => {
     setRoute(ev.target.value);
   }
 
+  //Show Train Availability based on the day
   let d = new Date(date);
   let day = d.getDate();
   

@@ -199,7 +199,45 @@ export default function Dashboard() {
     }
 
 
+    const SearchPassTable = () => {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.querySelector('#passengerSearch').value;
+      filter = input.toUpperCase();
+      table = document.querySelector('#passTable');
+      tr = table.querySelectorAll('tr');
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].querySelectorAll('td')[10]
+        if(td){
+          txtValue = td.innerText || td.textContent;
+          if(txtValue.toUpperCase().indexOf(filter) > -1){
+            tr[i].style.display = '';
+          } else {
+            tr[i].style.display = 'none';
+          }
+        }
+        
+      }
 
+    }
+    const SearchTrainStat = () => {
+      var input, table, tr, td, i, txtValue;
+      input = document.querySelector('#statSearch').value;
+      table = document.querySelector('#trainStatTable');
+      tr = table.querySelectorAll('tr');
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].querySelectorAll('td')[1]
+        if (td) {
+          txtValue = td.innerText || td.textContent;
+          if (txtValue.indexOf(input) > -1 ) {
+            tr[i].style.display = '';
+          } else {
+            tr[i].style.display = 'none';
+          }
+        }   
+      }
+    }
+
+    
   return (
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -293,7 +331,10 @@ export default function Dashboard() {
             <Box sx={{display:'flex', width:500}}>
               <Box sx={{flexGrow:1}} >
                 <Paper id="passengerTable" style={{display: 'none' }}>
-                  <Table aria-label='simple table'>
+                  <Paper sx={{display:'flex', justifyContent:'space-between'}}>
+                    <Typography sx={{m:1}}>Passenger Table</Typography>
+                    <TextField sx={{m:1}} label='Search Name' id='passengerSearch' onChange={SearchPassTable}/></Paper>
+                  <Table aria-label='simple table' id='passTable'>
                     <TableHead>
                       <TableCell>ticketID</TableCell>
                       <TableCell>trainNumber</TableCell>
@@ -363,7 +404,11 @@ export default function Dashboard() {
                   </Table>
                 </Paper>
                 <Paper id='trainStatusTable' style={{display: 'none'}}>
-                  <Table aria-label='simple table'>
+                <Paper sx={{display:'flex', justifyContent:'space-between'}}>
+                    <Typography sx={{m:1}}>Train Status Table</Typography>
+                    <TextField sx={{m:1}} type='date' id='statSearch' onChange={SearchTrainStat}/>
+                    </Paper>
+                  <Table aria-label='simple table' id='trainStatTable'>
                       <TableHead>
                           <TableCell>TrainNumber</TableCell>
                           <TableCell>trainDate</TableCell>
@@ -409,8 +454,12 @@ export default function Dashboard() {
                 </Box>
               </Box>
               <Box id='xmlTableRecord' class='xmlTable' style={{display: 'none'}}>
+                <Paper sx={{display:'flex', justifyContent:'space-between'}}>
+                    <Typography sx={{m:1}}>XML loaded table</Typography>
+                    
+                    </Paper>
                 <Paper>
-                    <Table aria-label='simple table'>
+                    <Table aria-label='simple table' id='XMLStable'>
                         <TableHead>
                           <TableCell>trainNumber</TableCell>
                           <TableCell>trainDate</TableCell>
