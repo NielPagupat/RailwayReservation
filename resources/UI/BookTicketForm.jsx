@@ -329,7 +329,7 @@ export default function BookTicketForm() {
       <TextField sx={{width:110}} name='fare' type="text" id="outlined-basic" placeholder='Fare' variant="outlined" size="small" value={fare} onChange={chkFare} inputProps={{readOnly:true}}/>
       </Box>
 
-      <Box sx={{display:'flex', flexDirection: 'row', alignItems:{sm:'normal', xl:'center'}, justifyContent:'space-between', marginX:{xs:1, sm:7}, marginBottom: 1}}>
+      <Box sx={{display:'flex', flexDirection: 'row', alignItems:{sm:'normal', xl:'center'}, justifyContent:'space-between', marginX:{xs:1, sm:6}, marginBottom: 1}}>
       <TextField sx={{width:{xs:200, sm:275}}} name='name' type="text" id="outlined-basic" label="Name" variant="outlined" size="small" value={fname} onChange={chkFname}/>
       <TextField sx={{width:55}} name='age' type="text" id="outlined-basic" label="Age" variant="outlined" size="small" value={age} onChange={chkAge}/>
       <TextField sx={{width:55}} name='sex' type="text" id="outlined-basic" label="Sex" variant="outlined" size="small" value={sex} onChange={chkSex}/>
@@ -352,7 +352,7 @@ export default function BookTicketForm() {
                   backgroundImage: 'url(https://source.unsplash.com/random/?train,railways)',
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: 'cover',
-                  backgroundPosition: 'center'}}></Box>
+                  backgroundPosition: 'center'}}/>
                 <Box sx={{
                   width:{xs:400, sm:450}, 
                   height:550,

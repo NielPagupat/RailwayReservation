@@ -45,7 +45,7 @@ function ResponsiveAppBar() {
           </Typography>
           </Box>
           <Box>
-          <Button onClick={handleOpen}><DepartureBoardIcon/></Button>
+          <Button onClick={handleOpen} sx={{display:{sm:'none'}, color:'white'}}><DepartureBoardIcon/></Button>
           <Button sx={{backgroundColor: 'white', color: 'black'}} variant="contained" href='/login'> Admin Login</Button>
           </Box>
         </Toolbar>
@@ -58,7 +58,7 @@ function ResponsiveAppBar() {
         >
           <Box sx={{
           width:300,
-          height:500,
+          height:510,
           overflow:'auto',
           display:'flex',
           justifyContent:'center',
@@ -71,7 +71,7 @@ function ResponsiveAppBar() {
             }} >
               <img src='https://cdn.discordapp.com/attachments/1072506851662499891/1118127775774150656/RailwayLOLZ.png' alt="Schedule" width="600"/>
             </Box>
-            <Button onClick={dlSched}><FileDownloadIcon/></Button>
+            <Button onClick={dlSched} sx={{color:'white'}}><FileDownloadIcon/></Button>
           </Box>
         </Modal>
       </Container>

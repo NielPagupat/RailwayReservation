@@ -11,7 +11,6 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { Button } from '@mui/material';
@@ -29,11 +28,6 @@ import { Train } from '@mui/icons-material';
 import RailwayAlertIcon from '@mui/icons-material/RailwayAlert';
 import SummarizeIcon from '@mui/icons-material/Summarize';
 import RssFeedIcon from '@mui/icons-material/RssFeed';
-import { useEffect } from 'react';
-
-
-
-
 
 const drawerWidth = 240;
 
@@ -58,6 +52,7 @@ const AppBar = styled(MuiAppBar, {
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     '& .MuiDrawer-paper': {
+      backgroundColor:'#1A1A1A',
       position: 'relative',
       whiteSpace: 'nowrap',
       width: drawerWidth,
@@ -72,7 +67,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.leavingScreen,
         }),
-        width: theme.spacing(7),
+        width: theme.spacing(9),
         [theme.breakpoints.up('sm')]: {
           width: theme.spacing(9),
         },
@@ -264,6 +259,7 @@ export default function Dashboard() {
         <AppBar position="absolute" open={open}>
           <Toolbar
             sx={{
+              backgroundColor: '#383838',
               pr: '24px', // keep right padding when drawer closed
             }}
           >
@@ -284,15 +280,19 @@ export default function Dashboard() {
               variant="h6"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1 }}
+              sx={{ flexGrow: 1,
+                fontFamily: 'Teko',
+                fontWeight: 500,
+                fontSize: 28}}
             >
-              Dashboard
+              ADMIN
             </Typography>
-            <IconButton color="inherit" href='/login'>
-                LogOut
+            <IconButton color="inherit" href='/login' sx={{fontFamily: 'Teko', fontWeight: 300, fontSize: 28}}>
+                Log out
             </IconButton>
           </Toolbar>
         </AppBar>
+        <Box sx={{backgroundColor: '#1A1A1A'}}>
         <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
@@ -300,39 +300,40 @@ export default function Dashboard() {
               alignItems: 'center',
               justifyContent: 'flex-end',
               px: [1],
+              backgroundColor: '#383838'
             }}
           >
             <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
+              <ChevronLeftIcon sx={{color:'white'}}/>
             </IconButton>
           </Toolbar>
-          <Divider />
-          <List component="nav" sx={{flexDirection:'column'}}>
+          <List component="nav" sx={{flexDirection:'column', backgroundColor: '#1A1A1A'}}>
 
             <Divider sx={{ my: 1 }} />
             <Button onClick={getPassenger} id='passBtn'>
-              <AirlineSeatReclineExtraIcon sx={{ fontSize: 30, mx:2}}/>
-              <Typography>Passenger</Typography>
+              <AirlineSeatReclineExtraIcon sx={{ fontSize: 30, marginRight:3, marginLeft:1.5, color: 'white'}}/>
+              <Typography sx={{fontFamily:'Arial', color:'white', fontSize:15}}>Passenger</Typography>
             </Button> <br/>
             <Button onClick={getTrain} id='trainLbtn'>
-              <Train sx={{ fontSize: 30, mx:2}}/>
-              <Typography>Train List</Typography>
+              <Train sx={{ fontSize: 30, marginRight:3, marginLeft:1.5, color: 'white'}}/>
+              <Typography sx={{fontFamily:'Arial', color:'white', fontSize:15}}>Train List</Typography>
             </Button> <br/>
             <Button onClick={getTrainStatus} id='TSbtn'>
-              <RailwayAlertIcon sx={{ fontSize: 30, mx:2}}/>
-              <Typography>Train Status</Typography>
+              <RailwayAlertIcon sx={{ fontSize: 30, marginRight:3, marginLeft:1.5, color: 'white'}}/>
+              <Typography sx={{fontFamily:'Arial', color:'white', fontSize:15}}>Train Status</Typography>
             </Button> <br/>
             <Button onClick={showRepPage} id='genRepBtn'>
-              <SummarizeIcon sx={{ fontSize: 30, mx:2}}/>
-              <Typography>Generate Report</Typography>
+              <SummarizeIcon sx={{ fontSize: 30, marginRight:3, marginLeft:1.5, color: 'white'}}/>
+              <Typography sx={{fontFamily:'Arial', color:'white', fontSize:15}}>Generate Report</Typography>
             </Button> <br/>
             <Button onClick={getXML} id='xmlBtn'>
-              <RssFeedIcon sx={{ fontSize: 30, mx:2}}/>
-              <Typography>XML LoadFile</Typography>
+              <RssFeedIcon sx={{ fontSize: 30, marginRight:3, marginLeft:1.5, color: 'white'}}/>
+              <Typography sx={{fontFamily:'Arial', color:'white', fontSize:15}}>XML LoadFile</Typography>
             </Button>
             
           </List>
         </Drawer>
+        </Box>
         <Box
           component="main"
           sx={{
@@ -344,34 +345,37 @@ export default function Dashboard() {
             height: '100vh',
             overflow: 'auto',
             display:'flex',
-            justifyContent:'center'
-          }}
-        >
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundImage: 'url(https://cdn.discordapp.com/attachments/1072506851662499891/1118447820337336431/cosmetic-background-for-product-branding-and-packaging-presentation-geometry-form-circle-molding-on-podium-stage-with-shadow-of-leaf-background-design-eps10-vector.png)'
+          }}>
           <Toolbar />
-          <Container maxWidth="xl" sx={{ mt: 4, mb: 4, justifyContent:'center'}}>
+          
+          <Container maxWidth="xl" sx={{mt: 5, mb: 5, justifyContent:'center'}}>
             <Box sx={{display:'flex'}}>
               <Box sx={{flexGrow:1, mt:5}} >
-                <Paper id="passengerTable" style={{display: 'none', width:1000}}>
+                <Paper id="passengerTable" style={{display: 'none', width:1500}}>
                   <Paper sx={{display:'flex', justifyContent:'space-between'}}>
-                    <Typography sx={{m:1}}>Passenger Table</Typography>
+                    <Typography sx={{mx:3, mt:3, fontWeight:'bold'}}>Passenger Table</Typography>
                     <TextField sx={{m:1}} label='Search Name' id='passengerSearch' onChange={SearchPassTable}/></Paper>
-                  <TableContainer sx={{width:1000, height:'75vh'}}>
+                  <TableContainer sx={{width:1500, height:'75vh'}}>
                     <Table aria-label='simple table' id='passTable' >
                       <TableHead>
-                        <TableCell>ticketID</TableCell>
-                        <TableCell>trainNumber</TableCell>
-                        <TableCell>dateBooked</TableCell>
-                        <TableCell>status</TableCell>
-                        <TableCell>category</TableCell>
-                        <TableCell>source</TableCell>
-                        <TableCell>destination</TableCell>
-                        <TableCell>name</TableCell>
-                        <TableCell>schedule</TableCell>
-                        <TableCell>route</TableCell>
-                        <TableCell>timestamp</TableCell>
-                        <TableCell>age</TableCell>
-                        <TableCell>sex</TableCell>
-                        <TableCell>address</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>ticketID</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>trainNumber</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>dateBooked</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>status</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>category</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>source</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>destination</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>name</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>schedule</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>route</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>timestamp</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>age</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>sex</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>address</TableCell>
                       </TableHead>
                       <TableBody>
                         {Passenger.map((pass)=> (
@@ -396,18 +400,21 @@ export default function Dashboard() {
                     </Table>
                   </TableContainer>
                 </Paper>
-                <Paper id='TrainListTable' style={{display: 'none', width:1000}}>
+                <Paper id='TrainListTable' style={{display: 'none', width:1500}}>
+                <Paper sx={{display:'flex'}}>
+                    <Typography sx={{mx:3, my:3, fontWeight:'bold'}}>Train List</Typography>
+                    </Paper>
                   <Table aria-label='simple table'>
                     <TableHead>
-                        <TableCell>trainNumber</TableCell>
-                        <TableCell>trainName</TableCell>
-                        <TableCell>source</TableCell>
-                        <TableCell>destination</TableCell>
-                        <TableCell>AC_Fare</TableCell>
-                        <TableCell>Gen_Fare</TableCell>
-                        <TableCell>Schedule</TableCell>
-                        <TableCell>totalACSeats</TableCell>
-                        <TableCell>totalGenSeats</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>trainNumber</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>trainName</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>source</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>destination</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>AC_Fare</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>Gen_Fare</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>Schedule</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>totalACSeats</TableCell>
+                        <TableCell sx={{fontWeight:'bold'}}>totalGenSeats</TableCell>
                     </TableHead>
                     <TableBody>
                       {Trains.map((train)=>(
@@ -426,21 +433,21 @@ export default function Dashboard() {
                     </TableBody>
                   </Table>
                 </Paper>
-                <Paper id='trainStatusTable' style={{display: 'none', width:'75vw'}}>
+                <Paper id='trainStatusTable' style={{display: 'none', width:1500}}>
                 <Paper sx={{display:'flex', justifyContent:'space-between'}}>
-                    <Typography sx={{m:1}}>Train Status Table</Typography>
+                    <Typography sx={{mx:3, mt:3, fontWeight:'bold'}}>Train Status Table</Typography>
                     <TextField sx={{m:1}} type='date' id='statSearch' onChange={SearchTrainStat}/>
                     </Paper>
-                  <TableContainer sx={{width:'75vw', height:'60vw', overflow:'auto'}}>
+                  <TableContainer sx={{width:1500, height:'60vw', overflow:'auto'}}>
                     <Table aria-label='simple table' id='trainStatTable'>
                         <TableHead>
-                            <TableCell>TrainNumber</TableCell>
-                            <TableCell>trainDate</TableCell>
-                            <TableCell>totalACSeats</TableCell>
-                            <TableCell>totalGenSeats</TableCell>
-                            <TableCell>ACSeatsBooked</TableCell>
-                            <TableCell>GenSeatsBooked</TableCell>
-                            <TableCell>route</TableCell>
+                            <TableCell sx={{fontWeight:'bold'}}>TrainNumber</TableCell>
+                            <TableCell sx={{fontWeight:'bold'}}>trainDate</TableCell>
+                            <TableCell sx={{fontWeight:'bold'}}>totalACSeats</TableCell>
+                            <TableCell sx={{fontWeight:'bold'}}>totalGenSeats</TableCell>
+                            <TableCell sx={{fontWeight:'bold'}}>ACSeatsBooked</TableCell>
+                            <TableCell sx={{fontWeight:'bold'}}>GenSeatsBooked</TableCell>
+                            <TableCell sx={{fontWeight:'bold'}}>route</TableCell>
                         </TableHead>
                         {TrainStat.map((trainst) => (
                           <TableRow key={trainst.trainNumber}>
@@ -457,19 +464,18 @@ export default function Dashboard() {
                   </TableContainer>
                 </Paper>
                 <Box id='GenSeatReport' style={{display:'none', width:1000}}>
-                  <Box sx={{display:'flex' }} >
-                        <Paper sx={{display:'flex',flexGrow:1, m:1, p:1, flexDirection:'column'}} variant='outlined' elevation={3}>
-                            <Typography>Generate Gen Seat Report Or AC seat report</Typography>
+                  <Box sx={{display:'flex', flexDirection:{xs:'column', sm:'row'}}} >
+                        <Paper sx={{display:'flex', mb:2, mr:1, p:1, flexDirection:'column', width:500}} variant='outlined' elevation={3}>
+                            <Typography sx={{mx:3, my:3, fontWeight:'bold'}}>Generate Gen-Seat Report Or AC-Seat Report</Typography>
                             <TextField label='Train Number' sx={{m:1, flexGrow:1}} id='trainNo'/>
                             <TextField type='date' sx={{m:1, flexGrow:1}} id='trainDate'/> 
                             <Box sx={{display:'flex'}}>
-                              <Button variant='contained' sx={{m:1, flexGrow:1}} onClick={getGenSeatReport}>General Seats Report</Button>
-                              <Button variant='contained' sx={{m:1, flexGrow:1}} onClick={getACSeatReport}>AC Seats Report</Button>
+                              <Button variant='contained' sx={{m:1, flexGrow:1, backgroundColor:'gray'}} onClick={getGenSeatReport}>General Seats Report</Button>
+                              <Button variant='contained' sx={{m:1, flexGrow:1, backgroundColor:'gray'}} onClick={getACSeatReport}>AC Seats Report</Button>
                             </Box>
                         </Paper>
-                        <Paper sx={{width:500, m:1, p:1}} variant='outlined'elevation={3}>
-                          <Typography>Result</Typography>
-                          <br/>
+                        <Paper sx={{width:500, mb:2, mx:0, p:1}} variant='outlined'elevation={3}>
+                          <Typography sx={{mx:1, mt:2, mb:2, fontWeight:'bold'}}>Results</Typography>
                           <Typography sx={{m:1}}>Train Number: {Report.trainNo}</Typography>
                           <Typography sx={{m:1}}>Train Date: {Report.date}</Typography>
                           <Typography sx={{m:1}}>Confirmed: {Report.Confirmed}</Typography>
@@ -477,20 +483,20 @@ export default function Dashboard() {
                         </Paper>
                   </Box>
                 </Box>
-                <Box id='xmlTableRecord' sx={{display: 'none', mt:4, width:'75vw'}}>
+                <Box id='xmlTableRecord' sx={{display: 'none', width:1500}}>
+                <Paper>
                 <Paper sx={{display:'flex', justifyContent:'space-between'}}>
-                    <Typography sx={{m:1}}>XML loaded table</Typography>
+                    <Typography sx={{mx:3, my:3, fontWeight:'bold'}}>XML loaded table</Typography>
                     <TextField label='dd-mm-yyy' sx={{m:1}} id='XMLsearch' onChange={searchXML}/>
                     </Paper>
-                <Paper>
-                  <TableContainer sx={{width:'75vw', height:'70vh', overflow:'auto'}}>
+                  <TableContainer sx={{width:1500, height:'70vh', overflow:'auto'}}>
                     <Table aria-label='simple table' id='XMLStable'>
                         <TableHead>
-                          <TableCell>trainNumber</TableCell>
-                          <TableCell>trainDate</TableCell>
-                          <TableCell>route</TableCell>
-                          <TableCell>ACSeatsBooked</TableCell>
-                          <TableCell>GenSeatsBooked</TableCell>
+                          <TableCell sx={{fontWeight:'bold'}}>trainNumber</TableCell>
+                          <TableCell sx={{fontWeight:'bold'}}>trainDate</TableCell>
+                          <TableCell sx={{fontWeight:'bold'}}>route</TableCell>
+                          <TableCell sx={{fontWeight:'bold'}}>ACSeatsBooked</TableCell>
+                          <TableCell sx={{fontWeight:'bold'}}>GenSeatsBooked</TableCell>
                         </TableHead>  
                       {xml.map((data) => (
                         <TableRow key={data.trainNumber}>

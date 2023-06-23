@@ -56,24 +56,58 @@ export default function CancelTicket() {
     <Modal open={open} 
              onClose={handleClose}
              sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-            <Box sx={{width:450, 
+            <Box sx={{
+            display: 'flex'}}>
+                
+            <Box sx={{
+              width:{xs:0, sm:300}, 
+              height:550, 
+              backgroundImage: 'url(https://source.unsplash.com/random/?train,railways)',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'}}/>
+            <Box sx={{width:{xs:400, sm:450},
                       height:550,
-                      backgroundColor:'white'}}>
-                  <Typography>{passenger.ticketId}</Typography>
-                  <Typography>{passenger.trainNumber}</Typography>
-                  <Typography>{passenger.dateBooked}</Typography>
-                  <Typography>{passenger.status}</Typography>
-                  <Typography>{passenger.source}</Typography>
-                  <Typography>{passenger.destination}</Typography>
-                  <Typography>{passenger.schedule}</Typography>
-                  <Typography>{passenger.category}</Typography>
-                  <Typography>{passenger.route}</Typography>
-                  <Typography>{passenger.Fare}</Typography>
-                  <Typography>{passenger.name}</Typography>
-                  <Typography>{passenger.age}</Typography>
-                  <Typography>{passenger.sex}</Typography>
-                  <Typography>{passenger.address}</Typography>
+                      backgroundColor:'white',
+                      paddingLeft: 5,
+                      paddingTop: 3}}>
+            <Box sx={{display:'flex'}}>
+            <Box>
+                  <Typography sx={{fontFamily:'Teko', fontSize:40, marginBottom:1, marginTop:1}}>Train Status</Typography>      
+                  <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Ticket ID: </Typography>
+                  <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Train Number: </Typography>
+                  <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Date booked: </Typography>
+                  <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Status: </Typography>
+                  <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Source: </Typography>
+                  <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Destination: </Typography>
+                  <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Schedule: </Typography>
+                  <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Category: </Typography>
+                  <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Route: </Typography>
+                  <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Fare: </Typography>
+                  <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Name: </Typography>
+                  <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Age: </Typography>
+                  <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Sex: </Typography>
+                  <Typography sx={{fontFamily:'Arial', fontSize:16, fontWeight:'bold'}}>Address: </Typography>
             </Box>
+            <Box sx={{marginTop:9.5}}>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{passenger.ticketID}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{passenger.trainNumber}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{passenger.dateBooked}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{passenger.status}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{passenger.source}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{passenger.destination}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{passenger.schedule}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{passenger.category}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{passenger.route}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>₱ {passenger.Fare}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{passenger.name}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{passenger.age}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{passenger.sex}</Typography>
+                    <Typography sx={{fontFamily:'Arial', fontSize:16}}>{passenger.address}</Typography>
+            </Box>
+            </Box>
+          </Box>
+        </Box>
     </Modal>
     </>
   )
