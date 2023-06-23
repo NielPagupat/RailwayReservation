@@ -6,11 +6,20 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import DirectionsRailwayIcon from '@mui/icons-material/DirectionsRailway';
-
+import DepartureBoardIcon from '@mui/icons-material/DepartureBoard';
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
+import Modal from '@mui/material/Modal';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import { saveAs } from 'file-saver';
 function ResponsiveAppBar() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const dlSched = () => {
+    saveAs('https://cdn.discordapp.com/attachments/1072506851662499891/1118127775774150656/RailwayLOLZ.png', "Schedule.jpg")
+  }
   return (
     <>
     <AppBar position="static" sx={{backgroundColor: '#383838'}}>
@@ -35,8 +44,36 @@ function ResponsiveAppBar() {
               BOLS Travel
           </Typography>
           </Box>
+          <Box>
+          <Button onClick={handleOpen}><DepartureBoardIcon/></Button>
           <Button sx={{backgroundColor: 'white', color: 'black'}} variant="contained" href='/login'> Admin Login</Button>
+          </Box>
         </Toolbar>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          sx={{display:'flex', justifyContent:'center', alignItems:'center'}}
+        >
+          <Box sx={{
+          width:300,
+          height:500,
+          overflow:'auto',
+          display:'flex',
+          justifyContent:'center',
+          flexDirection:'column'
+          }}>
+            <Box sx={{
+              width:300,
+              height:500,
+              overflow:'auto'
+            }} >
+              <img src='https://cdn.discordapp.com/attachments/1072506851662499891/1118127775774150656/RailwayLOLZ.png' alt="Schedule" width="600"/>
+            </Box>
+            <Button onClick={dlSched}><FileDownloadIcon/></Button>
+          </Box>
+        </Modal>
       </Container>
     </AppBar>
     </>

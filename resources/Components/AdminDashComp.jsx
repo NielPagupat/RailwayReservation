@@ -206,13 +206,15 @@ export default function Dashboard() {
       table = document.querySelector('#passTable');
       tr = table.querySelectorAll('tr');
       for (i = 0; i < tr.length; i++) {
-        td = tr[i].querySelectorAll('td')[10]
+        td = tr[i].querySelectorAll('td')[7]
         if(td){
           txtValue = td.innerText || td.textContent;
           if(txtValue.toUpperCase().indexOf(filter) > -1){
             tr[i].style.display = '';
+            console.log('yow')
           } else {
             tr[i].style.display = 'none';
+            console.log('Hi')
           }
         }
         
@@ -237,6 +239,23 @@ export default function Dashboard() {
       }
     }
 
+    const searchXML = () => {
+      var input, table, tr, td, i, txtValue;
+      input = document.querySelector('#XMLsearch').value;
+      table = document.querySelector('#XMLStable');
+      tr = table.querySelectorAll('tr');
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].querySelectorAll('td')[1]
+        if (td) {
+          txtValue = td.innerText || td.textContent;
+          if (txtValue.indexOf(input) > -1 ) {
+            tr[i].style.display = '';
+          } else {
+            tr[i].style.display = 'none';
+          }
+        }   
+      }
+    }
     
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -324,56 +343,60 @@ export default function Dashboard() {
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',
+            display:'flex',
+            justifyContent:'center'
           }}
         >
           <Toolbar />
-          <Container maxWidth="xl" sx={{ mt: 4, mb: 4}}>
-            <Box sx={{display:'flex', width:500}}>
-              <Box sx={{flexGrow:1}} >
-                <Paper id="passengerTable" style={{display: 'none' }}>
+          <Container maxWidth="xl" sx={{ mt: 4, mb: 4, justifyContent:'center'}}>
+            <Box sx={{display:'flex'}}>
+              <Box sx={{flexGrow:1, mt:5}} >
+                <Paper id="passengerTable" style={{display: 'none', width:1000}}>
                   <Paper sx={{display:'flex', justifyContent:'space-between'}}>
                     <Typography sx={{m:1}}>Passenger Table</Typography>
                     <TextField sx={{m:1}} label='Search Name' id='passengerSearch' onChange={SearchPassTable}/></Paper>
-                  <Table aria-label='simple table' id='passTable'>
-                    <TableHead>
-                      <TableCell>ticketID</TableCell>
-                      <TableCell>trainNumber</TableCell>
-                      <TableCell>dateBooked</TableCell>
-                      <TableCell>status</TableCell>
-                      <TableCell>category</TableCell>
-                      <TableCell>source</TableCell>
-                      <TableCell>destination</TableCell>
-                      <TableCell>schedule</TableCell>
-                      <TableCell>route</TableCell>
-                      <TableCell>timestamp</TableCell>
-                      <TableCell>name</TableCell>
-                      <TableCell>age</TableCell>
-                      <TableCell>sex</TableCell>
-                      <TableCell>address</TableCell>
-                    </TableHead>
-                    <TableBody>
-                      {Passenger.map((pass)=> (
-                        <TableRow key={pass.ticketID}>
-                          <TableCell>{pass.ticketID}</TableCell>
-                          <TableCell>{pass.trainNumber}</TableCell>
-                          <TableCell>{pass.dateBooked}</TableCell>
-                          <TableCell>{pass.status}</TableCell>
-                          <TableCell>{pass.category}</TableCell>
-                          <TableCell>{pass.source}</TableCell>
-                          <TableCell>{pass.destination}</TableCell>
-                          <TableCell>{pass.schedule}</TableCell>
-                          <TableCell>{pass.route}</TableCell>
-                          <TableCell>{pass.tmStamp}</TableCell>
-                          <TableCell>{pass.name}</TableCell>
-                          <TableCell>{pass.age}</TableCell>
-                          <TableCell>{pass.sex}</TableCell>
-                          <TableCell>{pass.address}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                  <TableContainer sx={{width:1000, height:'75vh'}}>
+                    <Table aria-label='simple table' id='passTable' >
+                      <TableHead>
+                        <TableCell>ticketID</TableCell>
+                        <TableCell>trainNumber</TableCell>
+                        <TableCell>dateBooked</TableCell>
+                        <TableCell>status</TableCell>
+                        <TableCell>category</TableCell>
+                        <TableCell>source</TableCell>
+                        <TableCell>destination</TableCell>
+                        <TableCell>name</TableCell>
+                        <TableCell>schedule</TableCell>
+                        <TableCell>route</TableCell>
+                        <TableCell>timestamp</TableCell>
+                        <TableCell>age</TableCell>
+                        <TableCell>sex</TableCell>
+                        <TableCell>address</TableCell>
+                      </TableHead>
+                      <TableBody>
+                        {Passenger.map((pass)=> (
+                          <TableRow key={pass.ticketID}>
+                            <TableCell>{pass.ticketID}</TableCell>
+                            <TableCell>{pass.trainNumber}</TableCell>
+                            <TableCell>{pass.dateBooked}</TableCell>
+                            <TableCell>{pass.status}</TableCell>
+                            <TableCell>{pass.category}</TableCell>
+                            <TableCell>{pass.source}</TableCell>
+                            <TableCell>{pass.destination}</TableCell>
+                            <TableCell>{pass.name}</TableCell>
+                            <TableCell>{pass.schedule}</TableCell>
+                            <TableCell>{pass.route}</TableCell>
+                            <TableCell>{pass.tmStamp}</TableCell>
+                            <TableCell>{pass.age}</TableCell>
+                            <TableCell>{pass.sex}</TableCell>
+                            <TableCell>{pass.address}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
                 </Paper>
-                <Paper id='TrainListTable' style={{display: 'none'}}>
+                <Paper id='TrainListTable' style={{display: 'none', width:1000}}>
                   <Table aria-label='simple table'>
                     <TableHead>
                         <TableCell>trainNumber</TableCell>
@@ -403,35 +426,37 @@ export default function Dashboard() {
                     </TableBody>
                   </Table>
                 </Paper>
-                <Paper id='trainStatusTable' style={{display: 'none'}}>
+                <Paper id='trainStatusTable' style={{display: 'none', width:1000}}>
                 <Paper sx={{display:'flex', justifyContent:'space-between'}}>
                     <Typography sx={{m:1}}>Train Status Table</Typography>
                     <TextField sx={{m:1}} type='date' id='statSearch' onChange={SearchTrainStat}/>
                     </Paper>
-                  <Table aria-label='simple table' id='trainStatTable'>
-                      <TableHead>
-                          <TableCell>TrainNumber</TableCell>
-                          <TableCell>trainDate</TableCell>
-                          <TableCell>totalACSeats</TableCell>
-                          <TableCell>totalGenSeats</TableCell>
-                          <TableCell>ACSeatsBooked</TableCell>
-                          <TableCell>GenSeatsBooked</TableCell>
-                          <TableCell>route</TableCell>
-                      </TableHead>
-                      {TrainStat.map((trainst) => (
-                        <TableRow key={trainst.trainNumber}>
-                          <TableCell>{trainst.trainNumber}</TableCell>
-                          <TableCell>{trainst.trainDate}</TableCell>
-                          <TableCell>{trainst.totalACSeats}</TableCell>
-                          <TableCell>{trainst.totalGenSeats}</TableCell>
-                          <TableCell>{trainst.ACSeatsBooked}</TableCell>
-                          <TableCell>{trainst.GenSeatsBooked}</TableCell>
-                          <TableCell>{trainst.route}</TableCell>
-                        </TableRow>
-                      ))}
-                  </Table>
+                  <TableContainer sx={{width:'75vw', height:'60vw', overflow:'auto'}}>
+                    <Table aria-label='simple table' id='trainStatTable'>
+                        <TableHead>
+                            <TableCell>TrainNumber</TableCell>
+                            <TableCell>trainDate</TableCell>
+                            <TableCell>totalACSeats</TableCell>
+                            <TableCell>totalGenSeats</TableCell>
+                            <TableCell>ACSeatsBooked</TableCell>
+                            <TableCell>GenSeatsBooked</TableCell>
+                            <TableCell>route</TableCell>
+                        </TableHead>
+                        {TrainStat.map((trainst) => (
+                          <TableRow key={trainst.trainNumber}>
+                            <TableCell>{trainst.trainNumber}</TableCell>
+                            <TableCell>{trainst.trainDate}</TableCell>
+                            <TableCell>{trainst.totalACSeats}</TableCell>
+                            <TableCell>{trainst.totalGenSeats}</TableCell>
+                            <TableCell>{trainst.ACSeatsBooked}</TableCell>
+                            <TableCell>{trainst.GenSeatsBooked}</TableCell>
+                            <TableCell>{trainst.route}</TableCell>
+                          </TableRow>
+                        ))}
+                    </Table>
+                  </TableContainer>
                 </Paper>
-                <Box id='GenSeatReport' style={{display:'none'}}>
+                <Box id='GenSeatReport' style={{display:'none', width:1000}}>
                   <Box sx={{display:'flex' }} >
                         <Paper sx={{display:'flex',flexGrow:1, m:1, p:1, flexDirection:'column'}} variant='outlined' elevation={3}>
                             <Typography>Generate Gen Seat Report Or AC seat report</Typography>
@@ -452,13 +477,13 @@ export default function Dashboard() {
                         </Paper>
                   </Box>
                 </Box>
-              </Box>
-              <Box id='xmlTableRecord' class='xmlTable' style={{display: 'none'}}>
+                <Box id='xmlTableRecord' sx={{display: 'none', mt:4, width:'75vw'}}>
                 <Paper sx={{display:'flex', justifyContent:'space-between'}}>
                     <Typography sx={{m:1}}>XML loaded table</Typography>
-                    
+                    <TextField label='dd-mm-yyy' sx={{m:1}} id='XMLsearch' onChange={searchXML}/>
                     </Paper>
                 <Paper>
+                  <TableContainer sx={{width:'75vw', height:'70vh', overflow:'auto'}}>
                     <Table aria-label='simple table' id='XMLStable'>
                         <TableHead>
                           <TableCell>trainNumber</TableCell>
@@ -477,7 +502,9 @@ export default function Dashboard() {
                         </TableRow>
                       ))}
                     </Table>
+                    </TableContainer>
                   </Paper>
+              </Box>
               </Box>
             </Box>
             
