@@ -426,7 +426,7 @@ export default function Dashboard() {
                     </TableBody>
                   </Table>
                 </Paper>
-                <Paper id='trainStatusTable' style={{display: 'none', width:1000}}>
+                <Paper id='trainStatusTable' style={{display: 'none', width:'75vw'}}>
                 <Paper sx={{display:'flex', justifyContent:'space-between'}}>
                     <Typography sx={{m:1}}>Train Status Table</Typography>
                     <TextField sx={{m:1}} type='date' id='statSearch' onChange={SearchTrainStat}/>
