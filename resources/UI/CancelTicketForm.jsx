@@ -59,7 +59,7 @@ export default function CancelTicket() {
             <Box sx={{width:450, 
                       height:550,
                       backgroundColor:'white'}}>
-                  <Typography>{passenger.ticketId}</Typography>
+                  <Typography>{passenger.ticketID}</Typography>
                   <Typography>{passenger.trainNumber}</Typography>
                   <Typography>{passenger.dateBooked}</Typography>
                   <Typography>{passenger.status}</Typography>

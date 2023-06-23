@@ -55,7 +55,7 @@ export default function BookTicketForm() {
         'category': cat
       }
     });
-    console.log(result.data[0].totalACSeats);
+    
     
     if (cat == 1) {
       setLimit(result.data[0].totalACSeats);
@@ -73,7 +73,6 @@ export default function BookTicketForm() {
     } else {
       setStatus('Confirmed');
       setAllowBook(false)
-      console.log(result.data.count[0].result)
     }
   }
 
@@ -124,7 +123,7 @@ export default function BookTicketForm() {
     chkStatus();
   }, cat)
 
-
+//responsible for setting Fare based on category
  useEffect(()=>{
   if (cat == 1) {
     setFare('200')
@@ -176,9 +175,11 @@ export default function BookTicketForm() {
   }
 
   const chkDate = (ev) => {
-  let d = new Date(ev.target.value).getDate();
-  let cd = new Date(Curdate).getDate()+7;
-  if (d <= cd) {
+  let chd = new Date(ev.target.value);
+  let cud = new Date(Curdate);
+  console.log((chd.getTime()-cud.getTime())/(1000*3600*24));
+
+  if ((chd.getTime()-cud.getTime())/(1000*3600*24) <= 7) {
     setDate(ev.target.value);
   } else {
     setDate(Curdate);
@@ -270,7 +271,7 @@ export default function BookTicketForm() {
       <select style={{width: 165, padding: 10}} name="source" id="source" value={source} onChange={chkSource}>
         <option value="source" disabled selected>Source</option>
         <option value="CDO">CDO</option>
-        <option value="Malaybalay">Malaybalay</option>
+        <option value="Malaybalay" style={{display:'none'}}>Malaybalay</option>
         <option value="Valencia">Valencia</option>
         <option value="Quezon">Quezon</option>
         <option value="Lorega">Lorega</option>
@@ -295,16 +296,16 @@ export default function BookTicketForm() {
       <Box sx={{display:'flex', flexDirection: 'row', alignItems:{sm:'normal', xl:'center'}, justifyContent:'space-between', marginX:{xs:1, sm:10.5}, marginBottom: 1}}>
       <select style={{width: 215, padding: 10}} name="tNo" id="trainName" value={train} onChange={chkTrain} >
         <option selected disabled>Train</option>
-        <option value="T01" class='routeA'>Orange</option>
-        <option value="T02" class='routeA'>Blue</option>
-        <option value="T03" class='routeA'>TGV</option>
-        <option value="T04" class='routeA'>GoldenTime</option>
-        <option value="T05" class='routeA'>ComfyCruiser</option>
-        <option value="T06" class='routeB'>LightWave</option>
-        <option value="T07" class='routeB'>HeatRan</option>
-        <option value="T08" class='routeB'>AyeTrain</option>
-        <option value="T09" class='routeB'>Hyperion</option>
-        <option value="T10" class='routeB'>Katipunan</option>
+        <option value="T01" class='routeA'style={{display:'none'}}>Orange</option>
+        <option value="T02" class='routeA'style={{display:'none'}}>Blue</option>
+        <option value="T03" class='routeA'style={{display:'none'}}>TGV</option>
+        <option value="T04" class='routeA'style={{display:'none'}}>GoldenTime</option>
+        <option value="T05" class='routeA'style={{display:'none'}}>ComfyCruiser</option>
+        <option value="T06" class='routeB'style={{display:'none'}}>LightWave</option>
+        <option value="T07" class='routeB'style={{display:'none'}}>HeatRan</option>
+        <option value="T08" class='routeB'style={{display:'none'}}>AyeTrain</option>
+        <option value="T09" class='routeB'style={{display:'none'}}>Hyperion</option>
+        <option value="T10" class='routeB'style={{display:'none'}}>Katipunan</option>
       </select>
       
       
